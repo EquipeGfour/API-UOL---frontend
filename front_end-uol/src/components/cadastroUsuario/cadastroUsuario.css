@@ -51,7 +51,7 @@ h6 {
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     font-weight: bold;
-    color: orange;
+    color: orange !important;
     margin-top: 1em !important;
     text-align: center;
     
@@ -64,8 +64,8 @@ h6 {
 }
 
 .p-checkbox .p-checkbox-box.p-highlight {
-    border-color: black;
-    background: orange;
+    border-color: black !important;
+    background: orange !important;
 }
 
 

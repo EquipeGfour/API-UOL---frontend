@@ -78,7 +78,7 @@ const HomeUsuario: React.FC = (props) => {
             <div className="carousel-demo">
                 <div className="card">
                     <Carousel value={products} numVisible={2} numScroll={3} responsiveOptions={responsiveOptions}
-                        itemTemplate={productTemplate} header={<h5>Seja Bem-Vindo!!!</h5>} />
+                        itemTemplate={productTemplate} header={<h5>Produtos do seu Interesse</h5>} />
                 </div>
 
                 <div className="card">
