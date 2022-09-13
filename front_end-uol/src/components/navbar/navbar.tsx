@@ -14,7 +14,7 @@ const Navbar:React.FC = (props) => {
             {  
                 label: 'Home',
                 command: (event) => {
-                    navigate ("/") 
+                    navigate ("/home-Usuario") 
                 }
                 
             }, 
@@ -35,7 +35,7 @@ const Navbar:React.FC = (props) => {
             {
                 label: 'Pacotes',
                 command: (event) => {
-                    navigate ("/home-usuario") 
+                    navigate ("/homeusuario") 
                 }
 
             }
