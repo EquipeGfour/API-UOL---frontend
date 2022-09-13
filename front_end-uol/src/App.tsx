@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+import CadastroUsuario from './components/cadastroUsuario/cadastroUsuario';
+import VendaUsuario from './components/vendaUsuario/vendaUsuario';
+import HomeUsuario from './components/homeUsuario/homeUsuario';
+import Navbar from './components/navbar/navbar';
+
+
+
+
+// function App() {
+type state = {
+    tela: string
+  }
+
+  class App extends Component<{}, state>{
+    constructor(props) {
+      super(props)
+      this.state = {
+        tela: ''
+      }
+      this.selecionarTela = this.selecionarTela.bind(this)
+    }
+  
+    selecionarTela(opcao: string, evento) {
+      console.log('ta clicando....');
+      evento.preventDefault()
+      this.setState({
+        tela: opcao
+      })
+    }
+
+  render(){    
+    return(
+      <div>
+        <BrowserRouter>
+          <Navbar/>
+          <Routes>
+            <Route path='/' element={<CadastroUsuario/>}/>
+            <Route path='home-usuario' element={<HomeUsuario/>}/>
+            <Route path='venda-usuario' element={<VendaUsuario/>}/>
+            
+          </Routes>
+        </BrowserRouter>
+      </div>
   );
+}
 }
 
 export default App;
