@@ -2,8 +2,8 @@ import React from "react";
 import {Link,Navigate,useNavigate} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-
 import { InputText } from 'primereact/inputtext';
+import { useFormik } from "formik";
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import { Password } from 'primereact/password';
@@ -13,18 +13,16 @@ import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
 import  './cadastroUsuario.css'
 
-import { useFormik } from "formik";
 
-
+{/* ----- Formulário ----- */}
 const  CadastroUsuario: React.FC = () => {
     const [countries, setCountries] = useState([]);
     const [showMessage, setShowMessage] = useState(false);
     const [formData, setFormData] = useState({});
    
 
-    useEffect(() => {
-        
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    useEffect(() => {        
+    }, []); 
 
     const formik = useFormik({
         initialValues: {
@@ -86,16 +84,30 @@ const  CadastroUsuario: React.FC = () => {
         </React.Fragment>
     );
 
+{/* ----- Interesses ----- */}
+       
+        const [checked, setChecked] = useState<boolean>(false);
+        const [interesses, setInteresses] = useState<any>([]);      
+    
+        const onIntChange = (e: { value: any, checked: boolean }) => {
+            let selectedInteresses = [...interesses];    
+            if (e.checked)
+                selectedInteresses.push(e.value);
+            else
+                selectedInteresses.splice(selectedInteresses.indexOf(e.value), 1);    
+            setInteresses(selectedInteresses);
+        }
+
     return (
+        
         <div className="form-demo">
-            <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="top" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
+            <Dialog visible={showMessage} onHide={() => setShowMessage(false)} position="center" footer={dialogFooter} showHeader={false} breakpoints={{ '960px': '80vw' }} style={{ width: '30vw' }}>
                 <div className="flex align-items-center flex-column pt-6 px-3">
                     <i className="pi pi-check-circle" style={{ fontSize: '5rem', color: 'var(--green-500)' }}></i>
                     <h5>Registrado com Sucesso!</h5>
                    
                 </div>
             </Dialog>
-
             <div className="flex justify-content-center">
                 <div className="card">
                     <h5 className="text-center">Cadastro de Usuário</h5>
@@ -107,7 +119,6 @@ const  CadastroUsuario: React.FC = () => {
                             </span>
                             {getFormErrorMessage('name')}
                         </div>
-
                         <div className="field">
                             <span className="p-float-label">
                                 <InputText id="cpf" name="cpf" value={formik.values.cpf} onChange={formik.handleChange} autoFocus className={classNames({ 'p-invalid': isFormFieldValid('cpf') })} />
@@ -115,7 +126,6 @@ const  CadastroUsuario: React.FC = () => {
                             </span>
                             {getFormErrorMessage('name')}
                         </div>
-
                         <div className="field">
                             <span className="p-float-label p-input-icon-right">
                                 <i className="pi pi-envelope" />
@@ -137,6 +147,44 @@ const  CadastroUsuario: React.FC = () => {
                             <label htmlFor="accept" className={classNames({ 'p-error': isFormFieldValid('accept') })}>Eu aceito os termos de uso</label>
                         </div> */}
 
+                        {/* ----- Interesses ----- */}
+                        <div>
+                            <div className="card2">
+                                <h6>Selecione seus interesses</h6>
+                                <div className="field-checkbox">
+                                    <Checkbox inputId="int1" name="interesses" value="Tecnologia" onChange={onIntChange} checked={interesses.indexOf('Tecnologia') !== -1} />
+                                    <label htmlFor="int1">Tecnologia</label>
+                                </div>
+                                <div className="field-checkbox">
+                                    <Checkbox inputId="int2" name="interesses" value="Esportes" onChange={onIntChange} checked={interesses.indexOf('Esportes') !== -1} />
+                                    <label htmlFor="int2">Esportes</label>
+                                </div>
+                                <div className="field-checkbox">
+                                    <Checkbox inputId="int3" name="interesses" value="Bem-estar" onChange={onIntChange} checked={interesses.indexOf('Bem-estar') !== -1} />
+                                    <label htmlFor="int3">Bem-estar</label>
+                                </div>
+                                <div className="field-checkbox">
+                                    <Checkbox inputId="int4" name="interesses" value="Filmes e Series" onChange={onIntChange} checked={interesses.indexOf('Filmes e Series') !== -1} />
+                                    <label htmlFor="int4">Filmes e Series</label>
+                                </div>
+                                <div className="field-checkbox">
+                                    <Checkbox inputId="int5" name="interesses" value="Infantil" onChange={onIntChange} checked={interesses.indexOf('Infantil') !== -1} />
+                                    <label htmlFor="int5">Infantil</label>
+                                </div>   
+                                <div className="field-checkbox">
+                                    <Checkbox inputId="int6" name="interesses" value="Social" onChange={onIntChange} checked={interesses.indexOf('Social') !== -1} />
+                                    <label htmlFor="int6">Social</label>
+                                </div>   
+                                <div className="field-checkbox">
+                                    <Checkbox inputId="int7" name="interesses" value="Segurança" onChange={onIntChange} checked={interesses.indexOf('Segurança') !== -1} />
+                                    <label htmlFor="int7">Segurança</label>
+                                </div>   
+                                <div className="field-checkbox">
+                                    <Checkbox inputId="int8" name="interesses" value="Jogos" onChange={onIntChange} checked={interesses.indexOf('Jogos') !== -1} />
+                                    <label htmlFor="int8">Jogos</label>
+                                </div>                  
+                            </div>
+                        </div>
                         <Button type="submit" label="Cadastrar" className="mt-2" />
                     </form>
                 </div>
