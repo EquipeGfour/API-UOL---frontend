@@ -1,8 +1,11 @@
 .p-menubar {
     padding: 0.5rem;
     background: #f59e0b;
-    color: #000000;
+    color: #ec1313;
     border: 0px solid #ffffff;
     border-radius: 0px;
     justify-content:space-between;
+}
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-text {
+    color: #000000;
 }
