@@ -184,8 +184,8 @@ const  CadastroUsuario: React.FC = () => {
                                     <label htmlFor="int8">Jogos</label>
                                 </div>                  
                             </div>
-                        </div>
-                        <Button type="submit" label="Cadastrar" className="mt-2" />
+                        </div><Button type="submit" label="Cadastrar" className="mt-2" />
+                        
                     </form>
                 </div>
             </div>

@@ -8,7 +8,7 @@ import CadastroUsuario from './components/cadastroUsuario/cadastroUsuario';
 import VendaUsuario from './components/vendaUsuario/vendaUsuario';
 import HomeUsuario from './components/homeUsuario/homeUsuario';
 import Navbar from './components/navbar/navbar';
-
+import LoginUsuario from './components/loginUsuario/loginUsuario'
 
 
 
@@ -40,7 +40,8 @@ type state = {
         <BrowserRouter>
           <Navbar/>
           <Routes>
-            <Route path='/' element={<CadastroUsuario/>}/>
+            <Route path='/' element={<LoginUsuario/>}/>
+            <Route path='cadastro-usuario' element={<CadastroUsuario/>}/>
             <Route path='home-usuario' element={<HomeUsuario/>}/>
             <Route path='venda-usuario' element={<VendaUsuario/>}/>
             
