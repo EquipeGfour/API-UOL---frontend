@@ -10,7 +10,21 @@ import { Console } from "console";
 
 const Navbar:React.FC = (props) => {
         const navigate = useNavigate()
-        const items = [            
+        const items = [  
+            {
+                label: 'Login',
+                command: (event) => {
+                    navigate ("/") 
+                }
+
+            },          
+            
+            {
+                label: 'Cadastro',
+                command: (event) => {
+                    navigate ("/cadastro-usuario") 
+                }
+            },
             {  
                 label: 'Home',
                 command: (event) => {
@@ -19,26 +33,14 @@ const Navbar:React.FC = (props) => {
                 
             }, 
             {
-                label: 'Cadastro',
-                command: (event) => {
-                    navigate ("/cadastro-usuario") 
-                }
-            },
-            {
 
-                label: 'Promoções',
+                label: 'Comprar',
                 command: (event) => {
                     navigate ("/venda-usuario") 
                 }
 
             },
-            {
-                label: 'Login',
-                command: (event) => {
-                    navigate ("/") 
-                }
-
-            }
+            
             
 
         ];
