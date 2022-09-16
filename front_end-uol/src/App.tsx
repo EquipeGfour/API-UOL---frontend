@@ -9,7 +9,7 @@ import VendaUsuario from './components/vendaUsuario/vendaUsuario';
 import HomeUsuario from './components/homeUsuario/homeUsuario';
 import Navbar from './components/navbar/navbar';
 import LoginUsuario from './components/loginUsuario/loginUsuario'
-
+import { CookiesProvider } from "react-cookie" 
 
 
 // function App() {
@@ -37,16 +37,17 @@ type state = {
   render(){    
     return(
       <div>
-        <BrowserRouter>
-          <Navbar/>
-          <Routes>
-            <Route path='/' element={<LoginUsuario/>}/>
-            <Route path='cadastro-usuario' element={<CadastroUsuario/>}/>
-            <Route path='home-usuario' element={<HomeUsuario/>}/>
-            <Route path='venda-usuario' element={<VendaUsuario/>}/>
-            
-          </Routes>
-        </BrowserRouter>
+        <CookiesProvider>
+          <BrowserRouter>
+            <Navbar/>
+            <Routes>
+              <Route path='/' element={<LoginUsuario/>}/>
+              <Route path='cadastro-usuario' element={<CadastroUsuario/>}/>
+              <Route path='home-usuario' element={<HomeUsuario/>}/>
+              <Route path='venda-usuario' element={<VendaUsuario/>}/>
+            </Routes>
+          </BrowserRouter>
+        </CookiesProvider>
       </div>
   );
 }

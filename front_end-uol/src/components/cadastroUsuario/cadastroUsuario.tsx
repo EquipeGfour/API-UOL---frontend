@@ -12,16 +12,60 @@ import { Dialog } from 'primereact/dialog';
 import { Divider } from 'primereact/divider';
 import { classNames } from 'primereact/utils';
 import  './cadastroUsuario.css'
+import axios from "axios";
 
 
 {/* ----- Formulário ----- */}
 const  CadastroUsuario: React.FC = () => {
-    const [countries, setCountries] = useState([]);
+    
     const [showMessage, setShowMessage] = useState(false);
     const [formData, setFormData] = useState({});
-   
+    const [nome, setNome ] = useState('');
+    const [cpf, setCpf ] = useState('');
+    const [email, setEmail ] = useState('');
+    const [password, setPassword] = useState('');
+    const [interesses, setInteresses] = useState([]);
 
-    useEffect(() => {        
+    const cadastrarUsuario = () => {
+        axios.post('http://localhost:8080/usuario/cadastro',{nome: nome,
+        cpf: cpf,
+        email: email,
+        senha: password,
+        interesses: interesses.filter(i=>i.checked)
+    }).then((res) => {
+            console.log(res.data.mensagem);
+            setNome("")
+            setCpf("")
+            setEmail("")
+            setPassword("")
+        }).catch((erro)=>{
+                console.error('Erro', erro.response)
+        }) 
+    }
+
+    const registraInteresse = () =>{
+        axios.get(`http://localhost:8080/categoria/buscar`).then((res)=>{
+            setInteresses(res.data.map((i)=>({
+                ...i,checked:false
+            })))
+        }).catch((erro=>{
+            console.error('Erro', erro.response)
+        }))
+    }
+
+    const changeChecked = (id) =>{
+        let newInt = interesses.map( (c) => {
+            if( id === c.id){
+                c.checked = !c.checked
+            }
+            return c
+        })
+        console.log(newInt)        
+        setInteresses(newInt)
+    }
+
+    useEffect(() => {  
+        registraInteresse()      
     }, []); 
 
     const formik = useFormik({
@@ -56,12 +100,11 @@ const  CadastroUsuario: React.FC = () => {
         //         errors.accept = 'You need to agree to the terms and conditions.';
         //     }
 
-        //     return errors;
-        // },
+        //    return errors;
+        //},
         onSubmit: (data) => {
             setFormData(data);
             setShowMessage(true);
-
             formik.resetForm();
         }
     });
@@ -85,12 +128,10 @@ const  CadastroUsuario: React.FC = () => {
     );
 
 {/* ----- Interesses ----- */}
-       
         const [checked, setChecked] = useState<boolean>(false);
-        const [interesses, setInteresses] = useState<any>([]);      
-    
+
         const onIntChange = (e: { value: any, checked: boolean }) => {
-            let selectedInteresses = [...interesses];    
+            let selectedInteresses = [...interesses];
             if (e.checked)
                 selectedInteresses.push(e.value);
             else
@@ -105,7 +146,6 @@ const  CadastroUsuario: React.FC = () => {
                 <div className="flex align-items-center flex-column pt-6 px-3">
                     <i className="pi pi-check-circle" style={{ fontSize: '5rem', color: 'var(--green-500)' }}></i>
                     <h5>Registrado com Sucesso!</h5>
-                   
                 </div>
             </Dialog>
             <div className="flex justify-content-center">
@@ -114,14 +154,14 @@ const  CadastroUsuario: React.FC = () => {
                     <form onSubmit={formik.handleSubmit} className="p-fluid">
                         <div className="field">
                             <span className="p-float-label">
-                                <InputText id="name" name="name" value={formik.values.name} onChange={formik.handleChange} autoFocus className={classNames({ 'p-invalid': isFormFieldValid('name') })} />
+                                <InputText id="name" name="name" value={nome} onChange={ e => {setNome(e.target.value)} } autoFocus className={classNames({ 'p-invalid': isFormFieldValid('name') })} />
                                 <label htmlFor="name" className={classNames({ 'p-error': isFormFieldValid('name') })}>Nome*</label>
                             </span>
                             {getFormErrorMessage('name')}
                         </div>
                         <div className="field">
                             <span className="p-float-label">
-                                <InputText id="cpf" name="cpf" value={formik.values.cpf} onChange={formik.handleChange} autoFocus className={classNames({ 'p-invalid': isFormFieldValid('cpf') })} />
+                                <InputText id="cpf" name="cpf" value={cpf} onChange={ e => {setCpf(e.target.value)} } autoFocus className={classNames({ 'p-invalid': isFormFieldValid('cpf') })} />
                                 <label htmlFor="cpf" className={classNames({ 'p-error': isFormFieldValid('cpf') })}>CPF*</label>
                             </span>
                             {getFormErrorMessage('name')}
@@ -129,14 +169,14 @@ const  CadastroUsuario: React.FC = () => {
                         <div className="field">
                             <span className="p-float-label p-input-icon-right">
                                 <i className="pi pi-envelope" />
-                                <InputText id="email" name="email" value={formik.values.email} onChange={formik.handleChange} className={classNames({ 'p-invalid': isFormFieldValid('email') })} />
+                                <InputText id="email" name="email" value={email} onChange={ e => {setEmail(e.target.value)}} className={classNames({ 'p-invalid': isFormFieldValid('email') })} />
                                 <label htmlFor="email" className={classNames({ 'p-error': isFormFieldValid('email') })}>Email*</label>
                             </span>
                             {getFormErrorMessage('email')}
                         </div>
                         <div className="field">
                             <span className="p-float-label">
-                                <Password id="password" name="password" value={formik.values.password} onChange={formik.handleChange} toggleMask
+                                <Password id="password" name="password" value={password} onChange={ e => {setPassword(e.target.value)}} toggleMask
                                     className={classNames({ 'p-invalid': isFormFieldValid('password') })} header={passwordHeader} footer={passwordFooter} />
                                 <label htmlFor="password" className={classNames({ 'p-error': isFormFieldValid('password') })}>Senha</label>
                             </span>
@@ -151,41 +191,16 @@ const  CadastroUsuario: React.FC = () => {
                         <div>
                             <div className="card2">
                                 <h6>Selecione seus interesses</h6>
-                                <div className="field-checkbox">
-                                    <Checkbox inputId="int1" name="interesses" value="Tecnologia" onChange={onIntChange} checked={interesses.indexOf('Tecnologia') !== -1} />
-                                    <label htmlFor="int1">Tecnologia</label>
+                                {interesses.map((categoria,index)=>(
+                                <div  key={categoria.id} className="field-checkbox" >
+                                    <Checkbox inputId={categoria.id} name="interesses" value={categoria.id} checked={categoria.checked} onChange={e => {changeChecked(categoria.id)}} />
+                                    <label htmlFor="int1">{categoria.nome}</label>                              
                                 </div>
-                                <div className="field-checkbox">
-                                    <Checkbox inputId="int2" name="interesses" value="Esportes" onChange={onIntChange} checked={interesses.indexOf('Esportes') !== -1} />
-                                    <label htmlFor="int2">Esportes</label>
-                                </div>
-                                <div className="field-checkbox">
-                                    <Checkbox inputId="int3" name="interesses" value="Bem-estar" onChange={onIntChange} checked={interesses.indexOf('Bem-estar') !== -1} />
-                                    <label htmlFor="int3">Bem-estar</label>
-                                </div>
-                                <div className="field-checkbox">
-                                    <Checkbox inputId="int4" name="interesses" value="Filmes e Series" onChange={onIntChange} checked={interesses.indexOf('Filmes e Series') !== -1} />
-                                    <label htmlFor="int4">Filmes e Series</label>
-                                </div>
-                                <div className="field-checkbox">
-                                    <Checkbox inputId="int5" name="interesses" value="Infantil" onChange={onIntChange} checked={interesses.indexOf('Infantil') !== -1} />
-                                    <label htmlFor="int5">Infantil</label>
-                                </div>   
-                                <div className="field-checkbox">
-                                    <Checkbox inputId="int6" name="interesses" value="Social" onChange={onIntChange} checked={interesses.indexOf('Social') !== -1} />
-                                    <label htmlFor="int6">Social</label>
-                                </div>   
-                                <div className="field-checkbox">
-                                    <Checkbox inputId="int7" name="interesses" value="Segurança" onChange={onIntChange} checked={interesses.indexOf('Segurança') !== -1} />
-                                    <label htmlFor="int7">Segurança</label>
-                                </div>   
-                                <div className="field-checkbox">
-                                    <Checkbox inputId="int8" name="interesses" value="Jogos" onChange={onIntChange} checked={interesses.indexOf('Jogos') !== -1} />
-                                    <label htmlFor="int8">Jogos</label>
-                                </div>                  
+                                ))}         
+
                             </div>
-                        </div><Button type="submit" label="Cadastrar" className="mt-2" />
-                        
+                            
+                        </div><Button type="submit" label="Cadastrar" onClick={ cadastrarUsuario } className="mt-2" />
                     </form>
                 </div>
             </div>

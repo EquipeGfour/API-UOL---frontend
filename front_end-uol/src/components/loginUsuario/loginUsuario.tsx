@@ -3,29 +3,47 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from "primereact/button";
 import { Password } from "primereact/password";
 import  './loginUsuario.css'
+import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const LoginUsuario:React.FC = (props) => {
-    const [value1, setValue1] = useState('');
-    const [value2, setValue2] = useState('');
 
+    const [email, setEmail ] = useState('');
+    const [password, setPassword] = useState('');
+    const [cookie, setCookies] = useCookies();
 
+    const login = () => {
+        axios.post("http://localhost:8081/login/",{
+        email: email,
+        senha: password,
+    }).then((res)=>{
+        console.log(res.data);
+        setCookies("uol", res.data.dadosLogin)
+        setEmail("")
+        setPassword("")
+    }).catch((erro)=>{
+        console.error('Erro', erro.response)
+    }) 
+    }
+
+    
     return (
         <div className="flex justify-content-center">
             <div className="card">
             <h5>Login de Usuário</h5>
                 <div className="field">
                     <span className="p-float-label">
-                        <InputText id="Email" value={value1} onChange={(e) => setValue1(e.target.value)} />
+                        <InputText id="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                         <label htmlFor="Email">Email</label>
                     </span>
                 </div>
                 <div className="field">
                     <span className="p-float-label">
-                        <Password value={value2} onChange={(e) => setValue2(e.target.value)} toggleMask />
+                        <Password value={password} onChange={(e) => setPassword(e.target.value)} toggleMask />
                         <label htmlFor="Senha">Senha</label>
                     </span>
                 </div>
-                <Button type="submit" label="Cadastrar" className="mt-2" />
+                <Button type="submit" label="Cadastrar" onClick={login} className="mt-2" />
                 <h3>Novo no site? Faça seu cadastro <a href="/cadastro-usuario">aqui</a></h3>
             </div>
         </div>
