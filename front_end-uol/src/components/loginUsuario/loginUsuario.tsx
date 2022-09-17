@@ -5,28 +5,31 @@ import { Password } from "primereact/password";
 import  './loginUsuario.css'
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+
 
 const LoginUsuario:React.FC = (props) => {
 
     const [email, setEmail ] = useState('');
     const [password, setPassword] = useState('');
     const [cookie, setCookies] = useCookies();
+    const navigate = useNavigate();
 
     const login = () => {
         axios.post("http://localhost:8081/login/",{
         email: email,
         senha: password,
     }).then((res)=>{
-        console.log(res.data);
         setCookies("uol", res.data.dadosLogin)
         setEmail("")
         setPassword("")
+        console.log(res.data.dadosLogin)
+        navigate('/home-usuario')
     }).catch((erro)=>{
         console.error('Erro', erro.response)
-    }) 
+        }) 
     }
 
-    
     return (
         <div className="flex justify-content-center">
             <div className="card">
@@ -43,7 +46,8 @@ const LoginUsuario:React.FC = (props) => {
                         <label htmlFor="Senha">Senha</label>
                     </span>
                 </div>
-                <Button type="submit" label="Cadastrar" onClick={login} className="mt-2" />
+                
+                <Button type="submit" label="Cadastrar" onClick={login}  className="mt-2" />
                 <h3>Novo no site? Faça seu cadastro <a href="/cadastro-usuario">aqui</a></h3>
             </div>
         </div>

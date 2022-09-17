@@ -115,10 +115,7 @@ const VendaUsuario: React.FC = () => {
     return (
         <>
             <h5 className='text-center'>Comprar Produtos</h5>
-            <div>
-                <h3 className="first"></h3>
-                <Tree filter filterPlaceholder='Pesquiser Produtos' />
-            </div>
+            
             <div className='camada1'>
                     
                         <div className='metade'>

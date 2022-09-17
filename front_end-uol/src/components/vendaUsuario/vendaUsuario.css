@@ -102,3 +102,6 @@
     margin-top: 0em !important;
     text-align: center;
 }
+.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+    background-color: #f59e0b;
+}
