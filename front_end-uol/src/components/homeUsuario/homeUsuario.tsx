@@ -101,8 +101,8 @@ const HomeUsuario: React.FC = (props) => {
                                 itemTemplate={productTemplate} header={<h3 className='produto-tamanho'>{categoria.nome}</h3>} />
                         </div>
                     ))}
-
-                    <h5 className='categoria-tamanho'>Produtos por categoria</h5>
+                    
+                    {categorias.length?<h5 className='categoria-tamanho'>Produtos por categoria</h5>:<></>}
 
                     {categorias.map((categoria) => (
                         <div key={categoria.id} className="card">
