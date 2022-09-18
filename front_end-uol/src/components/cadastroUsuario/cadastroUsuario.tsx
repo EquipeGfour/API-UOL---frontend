@@ -15,9 +15,10 @@ import  './cadastroUsuario.css'
 import axios from "axios";
 
 
+
 {/* ----- Formulário ----- */}
 const  CadastroUsuario: React.FC = () => {
-    
+    const navigate = useNavigate()
     const [showMessage, setShowMessage] = useState(false);
     const [formData, setFormData] = useState({});
     const [nome, setNome ] = useState('');
@@ -38,6 +39,8 @@ const  CadastroUsuario: React.FC = () => {
             setCpf("")
             setEmail("")
             setPassword("")
+            navigate('/')
+            
         }).catch((erro)=>{
                 console.error('Erro', erro.response)
         }) 

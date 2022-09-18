@@ -16,6 +16,14 @@
     box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
 }
 
+.categoria-tamanho{
+    font-size: 40px;
+}
+
+.produto-tamanho{
+    font-size: 25px;
+}
+
 h6 {
     color: rgb(0, 0, 0);
 }

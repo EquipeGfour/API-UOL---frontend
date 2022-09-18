@@ -3,30 +3,25 @@ import { Carousel } from 'primereact/carousel';
 import './homeUsuario.css'
 import { useCookies } from "react-cookie";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const HomeUsuario: React.FC = (props) => {
 
     const [cookies, setCookie] = useCookies(['uol']);
     const [interesses, setInteresses] = useState([]);
-    const [produtos, setProdutos] = useState([]);
+    const [categorias, setCategorias] = useState([]);
+    const navigate = useNavigate();
 
 
     const usuarioInteresses = () => {
-        axios.get(`http://localhost:8081/interesse/preferencias-usuario/${cookies.uol.id}`).then((res) => {
-            setInteresses(res.data.dados);
+        axios.get(`http://localhost:8081/interesse/preferencias/${cookies.uol.id}`).then((res) => {
+            setInteresses(res.data.interesses);
+            setCategorias(res.data.categorias);
+            console.log(res.data.categorias)
         }).catch((erro) => {
             console.error('Erro', erro.response)
         })
     }
-    const listaProdutos = () => {
-        axios.get(`http://localhost:8080/produto/buscar`).then((res) => {
-            setProdutos(res.data)
-        }).catch((erro) => {
-            console.error('Erro', erro.response)
-        })
-    }
-
-
     class ProductService {
 
         getProductsSmall() {
@@ -62,21 +57,18 @@ const HomeUsuario: React.FC = (props) => {
         }
     ];
 
-
-    const productService = new ProductService();
-
     useEffect(() => {
         usuarioInteresses()
-        productService.getProductsSmall().then(data => setProducts(data.slice(0, 9)));
-        listaProdutos()
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, []);
 
     const productTemplate = (product) => {
         return (
             <div className="product-item">
+            
+            <a onClick={e=>navigate(`/venda-usuario/categoria/${product.categoriaId}/produto/${product.id}`)}>
                 <div className="product-item-content">
                     <div className="mb-3">
-                        <img src={`images/product/uol.jpg`} onError={(e) =>
+                        <img src={'images/product/uol.jpg'} onError={(e) =>
                             'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'}
                             alt={product.nome} className="product-image" />
                     </div>
@@ -90,6 +82,7 @@ const HomeUsuario: React.FC = (props) => {
                         </div>
                     </div>
                 </div>
+                </a>
             </div>
         );
     }
@@ -97,22 +90,26 @@ const HomeUsuario: React.FC = (props) => {
 
         <>
             <div className="carousel-demo">
-                {interesses.map((categoria) => (
-                    <div key={categoria.id} className="card">
-                        <Carousel value={categoria.produtos} numVisible={2} numScroll={3} responsiveOptions={responsiveOptions}
-                            itemTemplate={productTemplate} header={<h5>{categoria.nome}</h5>} />
-                    </div>
-                ))}
-                <div className="card">
-                    <Carousel value={produtos} numVisible={4} numScroll={1} responsiveOptions={responsiveOptions} className="custom-carousel" circular
-                        autoplayInterval={3000} itemTemplate={productTemplate} header={<h5>Produtos Mais Vendidos</h5>} />
-                </div>
+            
+                <h5 className='categoria-tamanho'>Produtos relacionados ao seu interesse</h5>
+                    {interesses.map((categoria) => (
+                        <div key={categoria.id} className="card">
+                            <Carousel value={categoria.produtos.map((p)=>({...p, categoriaId:categoria.id}))} numVisible={2} numScroll={3} responsiveOptions={responsiveOptions}
+                                itemTemplate={productTemplate} header={<h3 className='produto-tamanho'>{categoria.nome}</h3>} />
+                        </div>
+                    ))}
+
+                    <h5 className='categoria-tamanho'>Produtos por categoria</h5>
+
+                    {categorias.map((categoria) => (
+                        <div key={categoria.id} className="card">
+                            <Carousel value={categoria.produtos.map((p)=>({...p, categoriaId:categoria.id}))}  numVisible={6} numScroll={4} responsiveOptions={responsiveOptions} className="custom-carousel" circular
+                                autoplayInterval={3000} itemTemplate={productTemplate} header={<h3 className='produto-tamanho'>{categoria.nome}</h3>} />
+                        </div>
+                    ))}
             </div>
         </>
     );
 }
-
-
-
 
 export default HomeUsuario;
