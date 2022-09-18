@@ -24,6 +24,20 @@
 
 <h2> :gear: Executando a Aplicação </h2>
 
+```bash
+
+# Clone o repositório:
+git clone https://github.com/EquipeGfour/API-UOL---frontend.git
+
+# Navegue para o caminho:
+cd API-UOL---frontend/front_end-uol
+
+# Instale as dependências:
+npm install
+
+# Inicie o sistema:
+npm start
+```
 <br>
 
 <h2> :computer: Demonstração
