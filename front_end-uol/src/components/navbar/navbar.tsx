@@ -10,10 +10,16 @@ import { Console } from "console";
 const Navbar: React.FC = (props) => {
     const navigate = useNavigate();
     const items = [
+      {
+        label: "Home",
+        command: (event) => {
+        navigate("/");
+      },
+    },
     {
         label: "Login",
         command: (event) => {
-        navigate("/");
+        navigate("/login");
         },
     },
 
@@ -23,18 +29,7 @@ const Navbar: React.FC = (props) => {
         navigate("/cadastro-usuario");
       },
     },
-    {
-        label: "Home",
-        command: (event) => {
-        navigate("/home-usuario");
-      },
-    },
-    {
-        label: "Comprar",
-        command: (event) => {
-        navigate("/venda-usuario");
-      },
-    },
+    
   ];
   const end = (
     <a href="https://www.uol.com.br/">

@@ -41,9 +41,9 @@ type state = {
           <BrowserRouter>
             <Navbar/>
             <Routes>
-              <Route path='/' element={<LoginUsuario/>}/>
+              <Route path='login' element={<LoginUsuario/>}/>
               <Route path='cadastro-usuario' element={<CadastroUsuario/>}/>
-              <Route path='home-usuario' element={<HomeUsuario/>}/>
+              <Route path='/' element={<HomeUsuario/>}/>
               <Route path='venda-usuario/categoria/:idCategoria/produto/:idProduto' element={<VendaUsuario/>}/>
               <Route path='venda-usuario' element={<VendaUsuario/>}/>
             </Routes>

@@ -14,10 +14,13 @@ const HomeUsuario: React.FC = (props) => {
 
 
     const usuarioInteresses = () => {
-        axios.get(`http://localhost:8081/interesse/preferencias/${cookies.uol.id}`).then((res) => {
+        var url = `http://localhost:8081/interesse/preferencias/null`
+        if(cookies.uol){
+            url = `http://localhost:8081/interesse/preferencias/${cookies.uol.id}`
+        }
+        axios.get(url).then((res) => {
             setInteresses(res.data.interesses);
             setCategorias(res.data.categorias);
-            console.log(res.data.categorias)
         }).catch((erro) => {
             console.error('Erro', erro.response)
         })
@@ -91,7 +94,7 @@ const HomeUsuario: React.FC = (props) => {
         <>
             <div className="carousel-demo">
             
-                <h5 className='categoria-tamanho'>Produtos relacionados ao seu interesse</h5>
+                {cookies.uol? <h5 className='categoria-tamanho'>Produtos relacionados ao seu interesse</h5>:<></>}
                     {interesses.map((categoria) => (
                         <div key={categoria.id} className="card">
                             <Carousel value={categoria.produtos.map((p)=>({...p, categoriaId:categoria.id}))} numVisible={2} numScroll={3} responsiveOptions={responsiveOptions}

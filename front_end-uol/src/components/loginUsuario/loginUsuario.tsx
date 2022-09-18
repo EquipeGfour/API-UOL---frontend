@@ -23,7 +23,7 @@ const LoginUsuario:React.FC = (props) => {
         setCookies("uol", res.data.dadosLogin)
         setEmail("")
         setPassword("")
-        navigate('/home-usuario')
+        navigate('/')
     }).catch((erro)=>{
         console.error('Erro', erro.response)
         }) 
