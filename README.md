@@ -34,4 +34,8 @@ npm start
 ```
 <br>
 
-<h2> :computer: Demonstração
+<h2> :computer: Demonstração da Aplicação
+
+<h1 align="center">
+<img src = "/gif/aplicacao.gif"></h1>
+<br>
