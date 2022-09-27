@@ -1,0 +1,10 @@
+.p-button {
+    padding-right: 2.5rem !important;
+    color: black;
+    /* background: orange; */
+    padding: 0.75rem 7rem !important;
+    /* font-size: 1rem; */
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 0px;
+    margin-top: 0 !important;
+}

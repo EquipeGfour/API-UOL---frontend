@@ -1,0 +1,55 @@
+.p-menubar {
+    padding: 0.5rem;
+    background: #f59e0b;
+    color: #ec1313;
+    border: 0px solid #ffffff;
+    border-radius: 0px;
+    justify-content:space-between;
+}
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-menuitem-text {
+    color: #000000;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:not(.p-disabled):hover {
+    background: #fafafa;
+}
+
+.p-listbox p-component{
+    width: 100%;
+}
+
+.p-listbox {
+    background: #ffffff;
+    color: #495057;
+    border: 0px solid #ced4da;
+    border-radius: 0px;
+}
+.mr-2{
+    cursor: pointer;
+}
+.botao {
+    padding: 0.75rem 1rem !important;
+}
+.p-sidebar .p-sidebar-content {
+    padding: 0rem;
+}
+.tamanhobotao{
+    width: 100%;
+    padding: 0.75rem 1rem !important;
+    color: black;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 0px;
+    margin-top: 0 !important;
+    background-color: none;
+    background: none;
+    border: none;
+}
+.tamanhobotao .p-button-label {
+    flex: none; 
+    border: none;
+}
+.p-listbox .p-listbox-list .p-listbox-item {
+    margin: 0;
+    padding: 0rem 
+}
+

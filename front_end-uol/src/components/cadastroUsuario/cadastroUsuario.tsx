@@ -204,6 +204,10 @@ const  CadastroUsuario: React.FC = () => {
                             </div>
                             
                         </div><Button type="submit" label="Cadastrar" onClick={ cadastrarUsuario } className="mt-2" />
+                        <div className="bottom">
+
+                        </div>
+                       
                     </form>
                 </div>
             </div>
