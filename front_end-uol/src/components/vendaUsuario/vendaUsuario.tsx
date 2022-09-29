@@ -21,8 +21,8 @@ const VendaUsuario: React.FC = () => {
     const {idProduto, idCategoria} = useParams();
     const [relacionados, setRelacionados] = useState([])
 
-    const CompreJunto = (id) => {
-        axios.get(`http://localhost:8081/compra/compre-junto/${id}`).then((res) => { 
+    const amarrar = (id) => {
+        axios.get(`http://localhost:8081/compra/amarrar/${id}`).then((res) => { 
             setPacotes(res.data)
         }).catch((erro) => {
             console.error('Erro', erro.response)
@@ -82,7 +82,7 @@ const VendaUsuario: React.FC = () => {
 
     useEffect(() => {
         vendaProduto(idProduto)
-        CompreJunto(idProduto)
+        amarrar(idProduto)
         produtosRelacionados(idCategoria)
     }, []);
 
@@ -152,7 +152,7 @@ const VendaUsuario: React.FC = () => {
             {/* ---------- Compre Junto ---------- */}
 
 
-            <h5 className='text-center'>Compre Junto</h5>
+            <h5 className='text-center'>Amarrar</h5>
             
             <div className='comprejunto'>
                 {pacotes.map((pacote)=>(
