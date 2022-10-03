@@ -1,46 +1,25 @@
 import React, { useState } from "react";
-
+import { Card } from 'primereact/card';
+import { Button } from 'primereact/button';
 import './homeAdmin.css'
+import { Link } from "react-router-dom";
 
 
 
 const HomeAdmin: React.FC = (props) => {
 
 
-
-    return (
-        <>
-            <div className="Welcome">
-                <h2 className="nivel">
-                    Seja Bem Vindo
-
-                </h2>
+    return (    
+        <div>
+           <div className="containerCadastro">
+            <h5>Bem Vindo Administrador</h5>
+            <div className="collection home">
+                <Link to={'/cadastro-produto'} className="collection-item pointer">Produtos e Categorias</Link>
+                <Link to={'/cadastro-pacote'} className="collection-item pointer">Criação e Gerenciamento de Pacotes</Link>
+                <Link to={'/cadastro-sugestoes'} className="collection-item pointer">Gerenciamento de Sugeridos</Link>
             </div>
-            <div className="contador">
-                <div className="contadores">
-                    <p className="tamanho">Serviços Lançados</p>
-                    <p className="tamanho"><strong>2</strong></p>
-                </div>
-                <div className="contadores">
-                    <p className="tamanho">Serviços Lançados</p>
-                    <p className="tamanho"><strong>2</strong></p>
-                </div>
-            </div>
-            {/* ferramentas */}
-            <div className="Vinculadores">
-                <h2 className="centralizar">
-                    Vincuar Produtos
-                </h2>
-                <hr className="traço"/>
-                <div className="texto">
-                    <p className="texto">
-                    Vamos Vincular um Serviço para um pacote ?
-                    </p>
-                    <img src="" alt="" />
-                </div>
-                
-            </div>
-        </>
+        </div>
+        </div>
     )
 }
 
