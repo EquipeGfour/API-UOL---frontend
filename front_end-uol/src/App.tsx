@@ -12,6 +12,7 @@ import LoginUsuario from './components/loginUsuario/loginUsuario'
 import { CookiesProvider } from "react-cookie"
 import CadastroProduto from './components/cadastroProduto/cadastroProduto';
 import NavbarAdmin from './components/navbarAdmin/navbarAdmin';
+import HomeAdmin from './components/homeAdmin/homeAdmin'
 
 // function App() {
 type state = {
@@ -49,6 +50,7 @@ type state = {
               <Route path='venda-usuario/categoria/:idCategoria/produto/:idProduto' element={<VendaUsuario/>}/>
               <Route path='venda-usuario' element={<VendaUsuario/>}/>
               <Route path='cadastro-produto' element={<CadastroProduto/>}/>
+              <Route path='HomeAdmin' element={<HomeAdmin/>}/>
             </Routes>
           </BrowserRouter>
         </CookiesProvider>
