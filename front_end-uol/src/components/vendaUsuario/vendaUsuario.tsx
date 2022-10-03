@@ -24,6 +24,8 @@ const VendaUsuario: React.FC = () => {
     const amarrar = (id) => {
         axios.get(`http://localhost:8081/compra/amarrar/${id}`).then((res) => { 
             setPacotes(res.data)
+            console.log(res.data);
+            
         }).catch((erro) => {
             console.error('Erro', erro.response)
         })
@@ -152,13 +154,17 @@ const VendaUsuario: React.FC = () => {
             {/* ---------- Compre Junto ---------- */}
 
 
-            <h5 className='text-center'>Amarrar</h5>
+            <h5 className='text-center'>PACOTE SUGERIDOS</h5>
             
             <div className='comprejunto'>
                 {pacotes.map((pacote)=>(
                 <Card key={pacote.id} title={pacote.nome} subTitle={`Preço: R$ ${pacote.preco}`} style={{ width: '25em' }} footer={footer} header={header}>
                     <p className="m-0" style={{ lineHeight: '1.5' }}>{pacote.descricao}</p>
-                    <Image src="/images/product/uol.jpg" alt="Image" width="250" />
+                  {pacote.produtos.map((pprod)=>(
+                    <ul>
+                    <li>{pprod.nome}</li>
+                    </ul>
+                  ))}
                 </Card>
                 ))}
             </div>

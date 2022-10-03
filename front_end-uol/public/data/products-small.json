@@ -10,6 +10,7 @@
         {"id": "1007","code": "mbvjkgip5","name": "universinho","description": "Product Description","image": "universinho.jpg","price": 34,"category": "Accessories","quantity": 23,"inventoryStatus": "","rating": 5},
         {"id": "1008","code": "vbb124btr","name": "uol_play","description": "Product Description","image": "uol_play.jpg","price": 99,"category": "Electronics","quantity": 2,"inventoryStatus": "","rating": 4},
         {"id": "1009","code": "cm230f032","name": "uol_esporte_clube","description": "Product Description","image": "uol_esporte_clube.jpg","price": 299,"category": "Electronics","quantity": 63,"inventoryStatus": "","rating": 3}
+        
     ]
 }
 
