@@ -46,7 +46,7 @@ const LoginUsuario:React.FC = (props) => {
                     </span>
                 </div>
                 
-                <Button type="submit" label="Login" onClick={login}  className="mt-2" />
+                <Button type="submit" label="Login" onClick={login}  className="mt-2 botaoLogin" />
                 <h3>Novo no site? Faça seu cadastro <a href="/cadastro-usuario">aqui</a></h3>
             </div>
         </div>

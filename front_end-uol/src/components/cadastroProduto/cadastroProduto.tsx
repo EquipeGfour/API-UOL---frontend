@@ -15,6 +15,7 @@ import { RadioButton } from 'primereact/radiobutton';
 import { InputNumber } from 'primereact/inputnumber';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
+import { MultiSelect } from 'primereact/multiselect';
 
 const CadastroProduto: React.FC = (props) => {
 
@@ -24,23 +25,33 @@ const CadastroProduto: React.FC = (props) => {
         image: null,
         description: '',
         category: null,
-        price: 0,
+        price: '',
         quantity: 0,
         rating: 0,
         inventoryStatus: 'INSTOCK'
     };
+    const cities = [
+        { name: 'Streaming', code: 'SM' },
+        { name: 'Serviços', code: 'SE' },
+        { name: 'Entretenimento', code: 'EM' },
+        { name: 'Conteudo', code: 'CON' }
+    ];
 
     const [produtos, setProdutos] = useState([]);
     const [produtosSelecionados, setProdutosSelecionados] = useState([]);
     const [products, setProducts] = useState(null);
     const [productDialog, setProductDialog] = useState(false);
+    const [product1Dialog, setProduct1Dialog] = useState(false);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
     const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
     const [product, setProduct] = useState(emptyProduct);
+    const [product1, setProduct1] = useState(emptyProduct);
     const [selectedProducts, setSelectedProducts] = useState(null);
     const [submitted, setSubmitted] = useState(false);
+    const [sub1mitted, setSub1mitted] = useState(false);
     const [globalFilter, setGlobalFilter] = useState(null);
-
+    const [selectedCities2, setSelectedCities2] = useState(null);
+    const [descricao, setDescricao] = useState(null);
 
 
     const pegaDados = () => {
@@ -51,101 +62,59 @@ const CadastroProduto: React.FC = (props) => {
     const viewimage = (produto) => {
         return <img src={`images/product/${produto.image}`} />
     }
-    
-
-    
     const openNew = () => {
         setProduct(emptyProduct);
         setSubmitted(false);
         setProductDialog(true);
     }
 
+    const open1New = () => {
+        setProduct1(emptyProduct);
+        setSub1mitted(false);
+        setProduct1Dialog(true);
+    }
+
     const hideDialog = () => {
         setSubmitted(false);
         setProductDialog(false);
     }
-
-    const hideDeleteProductDialog = () => {
-        setDeleteProductDialog(false);
+    const hide1Dialog = () => {
+        setSub1mitted(false);
+        setProduct1Dialog(false);
     }
 
-    const hideDeleteProductsDialog = () => {
-        setDeleteProductsDialog(false);
+    const leftContents = (
+        <React.Fragment>
+            <Button label="Upload" icon="pi pi-upload" className="p-button-success botaoTamanho" />
+        </React.Fragment>
+    );
+
+    const onInput1Change = (e, description) => {
+        const val = (e.target && e.target.value) || '';
+        let _product = { ...product };
+        _product[`${description}`] = val;
+
+        setProduct1(_product);
     }
 
-    const saveProduct = () => {
-        setSubmitted(true);
 
-        if (product.name.trim()) {
-            let _products = [...products];
-            let _product = {...product};
-            
 
-            setProducts(_products);
-            setProductDialog(false);
-            setProduct(emptyProduct);
-        }
-    }
-
-    const editProduct = (product) => {
-        setProduct({...product});
-        setProductDialog(true);
-    }
-
-    const confirmDeleteProduct = (product) => {
-        setProduct(product);
-        setDeleteProductDialog(true);
-    }
-
-    const deleteProduct = () => {
-        let _products = products.filter(val => val.id !== product.id);
-        setProducts(_products);
-        setDeleteProductDialog(false);
-        setProduct(emptyProduct);
-    }
     const onInputChange = (e, name) => {
         const val = (e.target && e.target.value) || '';
-        let _product = {...product};
+        let _product = { ...product };
         _product[`${name}`] = val;
 
         setProduct(_product);
     }
 
-    const onInputNumberChange = (e, name) => {
-        const val = e.value || 0;
-        let _product = {...product};
-        _product[`${name}`] = val;
 
-        setProduct(_product);
-    }
-    
-
-    const ratingBodyTemplate = (rowData) => {
-        return <Rating value={rowData.rating} readOnly cancel={false} />;
-    }
-
-    const statusBodyTemplate = (rowData) => {
-        return <span className={`product-badge status-${rowData.inventoryStatus.toLowerCase()}`}>{rowData.inventoryStatus}</span>;
-    }
-
-    const findIndexById = (id) => {
-        let index = -1;
-        for (let i = 0; i < products.length; i++) {
-            if (products[i].id === id) {
-                index = i;
-                break;
-            }
-        }
-
-        return index;
-    }
 
     const leftToolbarTemplate = () => {
         return (
             <React.Fragment>
-                <Button label="Novo" icon="pi pi-plus"  className="p-button-success mr-1"  />
-                <Button label="Categoria" icon="pi pi-plus"  className="p-button-success mr-1" onClick={openNew} />
-                <Button label="Delete" icon="pi pi-trash" className="p-button-danger" />
+                <Button label="Novo" icon="pi pi-plus" className="p-button-success mr-1 botaoTamanho" onClick={open1New} />
+                <Button label="Categoria" icon="pi pi-plus" className="p-button-success mr-1 botaoTamanho" onClick={openNew} />
+                <Button label="Delete" icon="pi pi-trash" className="p-button-danger botaoTamanho" />
             </React.Fragment>
         )
     }
@@ -155,11 +124,11 @@ const CadastroProduto: React.FC = (props) => {
         getProductsSmall() {
             return fetch('data/products-small.json').then(res => res.json()).then(d => d.data);
         }
-    
+
         getProducts() {
             return fetch('data/products.json').then(res => res.json()).then(d => d.data);
         }
-    
+
         getProductsWithOrdersSmall() {
             return fetch('data/products-orders-small.json').then(res => res.json()).then(d => d.data);
         }
@@ -170,43 +139,37 @@ const CadastroProduto: React.FC = (props) => {
     }, []);
 
     const header = () => {
-        return(
+        return (
             <div className="table-header">
                 <h5 className="mx-0 my-1">Gerenciar produtos</h5>
                 <span className="p-input-icon-left">
                     <i className="pi pi-search" />
-                    <InputText type="search" onInput={(e:React.ChangeEvent<HTMLInputElement>) => setfilter(e.target.value)} placeholder="Pesquisar..." />
+                    <InputText type="search" onInput={(e: React.ChangeEvent<HTMLInputElement>) => setfilter(e.target.value)} placeholder="Pesquisar..." />
                 </span>
             </div>
-            )
+        )
     }
-    const onCategoryChange = (e) => {
-        let _product = {...product};
-        _product['category'] = e.value;
-        setProduct(_product);
-    }
-    const setfilter = (e) =>{
-        if(e === ''){
+    const setfilter = (e) => {
+        if (e === '') {
             setGlobalFilter(null)
         }
-        else{
+        else {
             setGlobalFilter(e)
         }
     }
     const productDialogFooter = (
         <React.Fragment>
-            <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={saveProduct} />
+            <Button label="Cancelar" icon="pi pi-times" className="p-button-text botaoTamanho" onClick={hideDialog} />
+            <Button label="Salvar" icon="pi pi-check" className="p-button-text botaoTamanho" />
         </React.Fragment>
     );
-    
-
-    const deleteProductsDialogFooter = (
+    const product1DialogFooter = (
         <React.Fragment>
-            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hideDeleteProductsDialog} />
-            <Button label="Yes" icon="pi pi-check" className="p-button-text"  />
+            <Button label="Cancelar" icon="pi pi-times" className="p-button-text botaoTamanho " onClick={hide1Dialog} />
+            <Button label="Salvar" icon="pi pi-check" className="p-button-text botaoTamanho" />
         </React.Fragment>
     );
+
 
     return (
         <>
@@ -215,7 +178,7 @@ const CadastroProduto: React.FC = (props) => {
                     <Toolbar left={leftToolbarTemplate}></Toolbar>
                     <DataTable value={produtos} selection={produtosSelecionados}
                         onSelectionChange={(e) => setProdutosSelecionados(e.value)} header={header}
-                    globalFilter={globalFilter}>
+                        globalFilter={globalFilter}>
                         <Column selectionMode="multiple" headerStyle={{ width: '3rem' }} exportable={false}></Column>
                         <Column field='name' header='Nome'></Column>
                         <Column field='description' header='Descrição'></Column>
@@ -224,18 +187,43 @@ const CadastroProduto: React.FC = (props) => {
                         <Column field='category' header='Categoria'></Column>
                     </DataTable>
                 </div>
-            </div> 
-
-            <Dialog visible={productDialog} style={{ width: '750px' }} header="Product Details" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
+            </div>
+            <Dialog visible={productDialog} style={{ width: '750px' }} header="Criar Categoria" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
                 {product.image && <img src={`images/product/${product.image}`} />}
                 <div className="field">
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="name">Categoria</label>
                     <InputText id="name" value={product.name} onChange={(e) => onInputChange(e, 'name')} required autoFocus className={classNames({ 'p-invalid': submitted && !product.name })} />
-                    {submitted && !product.name && <small className="p-error">Name is required.</small>}
+                    {submitted && !product.name && <small className="p-error">Preencha o Campo.</small>}
                 </div>
             </Dialog>
 
-            
+            <Dialog visible={product1Dialog}  style={{ width: '950px' }} header="Criar Produto" modal className="p-fluid " footer={product1DialogFooter} onHide={hide1Dialog} > 
+
+                {product.image && <img src={`images/product/${product.image}`} />}
+                <div className="field">
+                    <label htmlFor="name">Nome Produto</label>
+                    <InputText id="name" value={product.name} onChange={(e) => onInputChange(e, 'name')} required autoFocus className={classNames({ 'p-invalid': sub1mitted && !product.name })} />
+                    {sub1mitted && !product.name && <small className="p-error">Preencha os Campos.</small>}
+                </div>
+                <div className="field">
+                    <label htmlFor="Descricao">Descrição</label>
+                    <InputTextarea id="description" value={product.description} onChange={(e) => onInputChange(e, 'description')} required />
+                    {sub1mitted && !product.description && <small className="p-error">Preencha os Campos.</small>}
+                </div>
+                <div className="field">
+                    <label htmlFor="price">Preço</label>
+                    <InputText id="price" value={product.price} onChange={(e) => onInputChange(e, 'price')} required autoFocus className={classNames({ 'p-invalid': sub1mitted && !product.price })} />
+                    {sub1mitted && !product.price && <small className="p-error">Preencha os Campos.</small>}
+                </div>
+                <div className="field ">
+                    <label htmlFor="name">Upload Imagem</label>
+                    <Toolbar left={leftContents} />
+                </div>
+                <div className="field">
+                    <label htmlFor="Vincular">Vincular Categoria</label>
+                    <MultiSelect value={selectedCities2} options={cities} onChange={(e) => setSelectedCities2(e.value)} optionLabel="name" placeholder="Selecione a Categoria" display="chip" />
+                </div>
+            </Dialog>
         </>
     );
 }
