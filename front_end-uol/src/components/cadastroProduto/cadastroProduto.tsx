@@ -82,6 +82,10 @@ const CadastroProduto: React.FC = (props) => {
         setSub1mitted(false);
         setProduct1Dialog(false);
     }
+    const formatCurrency = (value) => {
+        return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    }
+    
 
     const leftContents = (
         <React.Fragment>
@@ -137,7 +141,23 @@ const CadastroProduto: React.FC = (props) => {
         pegaDados()
 
     }, []);
-
+    const actionBodyTemplate = (rowData) => {
+        return (
+            <React.Fragment>
+                <Button icon="pi pi-pencil" className="p-button-rounded p-button-success mr-2 botaoTamanho" onClick={() => editProduct1(rowData)} />
+                <Button icon="pi pi-trash" className="p-button-rounded p-button-warning botaoTamanho" onClick={() => confirmDeleteProduct(rowData)} />
+            </React.Fragment>
+        );
+        
+    }
+    const confirmDeleteProduct = (product) => {
+        setProduct(product);
+        setDeleteProductDialog(true);
+    }
+    const editProduct1 = (product) => {
+        setProduct1({...product});
+        setProduct1Dialog(true);
+    }
     const header = () => {
         return (
             <div className="table-header">
@@ -180,14 +200,16 @@ const CadastroProduto: React.FC = (props) => {
                         onSelectionChange={(e) => setProdutosSelecionados(e.value)} header={header}
                         globalFilter={globalFilter}>
                         <Column selectionMode="multiple" headerStyle={{ width: '3rem' }} exportable={false}></Column>
-                        <Column field='name' header='Nome'></Column>
-                        <Column field='description' header='Descrição'></Column>
-                        <Column field='image' header='Imagen' body={viewimage} ></Column>
-                        <Column field='price' header='Preço'></Column>
-                        <Column field='category' header='Categoria'></Column>
+                        <Column field='name' sortable header='Nome'></Column>
+                        <Column field='description'sortable header='Descrição'></Column>
+                        <Column field='image' header='Imagem' body={viewimage} ></Column>
+                        <Column field='price' sortable header='Preço'></Column>
+                        <Column field='category'sortable  header='Categoria'></Column>
+                        <Column body={actionBodyTemplate} exportable={false} style={{ minWidth: '4rem' }}></Column>
                     </DataTable>
                 </div>
             </div>
+            
             <Dialog visible={productDialog} style={{ width: '750px' }} header="Criar Categoria" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
                 {product.image && <img src={`images/product/${product.image}`} />}
                 <div className="field">
@@ -224,6 +246,7 @@ const CadastroProduto: React.FC = (props) => {
                     <MultiSelect value={selectedCities2} options={cities} onChange={(e) => setSelectedCities2(e.value)} optionLabel="name" placeholder="Selecione a Categoria" display="chip" />
                 </div>
             </Dialog>
+            
         </>
     );
 }
