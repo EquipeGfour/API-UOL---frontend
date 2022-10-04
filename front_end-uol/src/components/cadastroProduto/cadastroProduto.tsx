@@ -10,6 +10,7 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { MultiSelect } from "primereact/multiselect";
+import { TreeSelect } from 'primereact/treeselect';
 
 const CadastroProduto: React.FC = (props) => {
   let emptyProduct = {
@@ -45,6 +46,17 @@ const CadastroProduto: React.FC = (props) => {
   const [globalFilter, setGlobalFilter] = useState(null);
   const [selectedCities2, setSelectedCities2] = useState(null);
   const [descricao, setDescricao] = useState(null);
+
+  //  ------ Sugestoes -------
+  const [nodes, setNodes] = useState(null);
+  const [selectedNodeKeys1, setSelectedNodeKeys1] = useState(null);
+
+  
+    const getTreeNodes = () => {
+        return fetch('data/treenodes.json').then(res => res.json())
+                .then(d => {console.log(d); return d.root});
+    }
+
 
   const buscarProdutos = () => {
     axios
@@ -88,15 +100,7 @@ const CadastroProduto: React.FC = (props) => {
     });
   };
 
-  const leftContents = (
-    <React.Fragment>
-      <Button
-        label="Upload"
-        icon="pi pi-upload"
-        className="p-button-success botaoTamanho"
-      />
-    </React.Fragment>
-  );
+  
 
   const onInput1Change = (e, description) => {
     const val = (e.target && e.target.value) || "";
@@ -159,6 +163,7 @@ const CadastroProduto: React.FC = (props) => {
   }
 
   React.useEffect(() => {
+    getTreeNodes().then(data => setNodes(data));
     buscarProdutos();
   }, []);
 
@@ -202,7 +207,7 @@ const CadastroProduto: React.FC = (props) => {
   const header = () => {
     return (
       <div className="table-header">
-        <h5 className="mx-0 my-1">Gerenciar produtos</h5>
+        <h5 className="mx-0 my-1">Gerenciar Produtos</h5>
         <span className="p-input-icon-left">
           <i className="pi pi-search" />
           <InputText
@@ -369,10 +374,6 @@ const CadastroProduto: React.FC = (props) => {
             <small className="p-error">Preencha os Campos.</small>
           )}
         </div>
-        <div className="field ">
-          <label htmlFor="name">Upload Imagem</label>
-          <Toolbar left={leftContents} />
-        </div>
         <div className="field">
           <label htmlFor="Vincular">Vincular Categoria</label>
           <MultiSelect
@@ -383,6 +384,10 @@ const CadastroProduto: React.FC = (props) => {
             placeholder="Selecione a Categoria"
             display="chip"
           />
+        </div>
+        <div className="field">
+        <label htmlFor="Sugestões">Sugestões de Produtos</label>
+        <TreeSelect value={selectedNodeKeys1} options={nodes} onChange={(e) => setSelectedNodeKeys1(e.value)} selectionMode="multiple" metaKeySelection={false} placeholder="Selecione a Categoria"></TreeSelect>
         </div>
       </Dialog>
     </>

@@ -1,0 +1,18 @@
+{
+    "root": [
+        {
+            "key": "0",
+            "label": "Documents",
+            "data": "Documents Folder",
+            "icon": "pi pi-fw pi-inbox",
+            "children": [{
+                "key": "0-0",
+                "label": "Work",
+                "data": "Work Folder",
+                "icon": "pi pi-fw pi-cog"
+            
+            }
+            ]
+        }
+    ]
+}
