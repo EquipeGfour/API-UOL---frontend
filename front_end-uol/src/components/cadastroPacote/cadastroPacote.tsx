@@ -89,7 +89,7 @@ export const CadastroPacote: React.FC = () => {
 
     const itemTemplate = (item) => {
         return (
-            <div className="product-item">
+            <div className="product-item pick1">
                 <div className="image-container">
                     <img src={`images/product/${item.image}`} alt={item.name} />
                 </div>
@@ -119,6 +119,7 @@ export const CadastroPacote: React.FC = () => {
                             </span>
                             {getFormErrorMessage('name')}
                         </div>
+
 
                         <div className="field">
                             <span className="p-float-label">
@@ -155,8 +156,8 @@ export const CadastroPacote: React.FC = () => {
             </div>   
             
          
-        <div>      
-            <Button type="submit" label="Cadastrar Pacote"  className="mt-2 bottomPacote" />
+        <div className='bottomPacote'>      
+            <Button type="submit" label="Cadastrar Pacote"  className="mt-2 bottomPacote1" />
         </div>
 
         </>
