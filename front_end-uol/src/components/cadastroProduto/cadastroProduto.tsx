@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef} from "react";
 import "./cadastroProduto.css";
 import { classNames } from "primereact/utils";
 import { DataTable } from "primereact/datatable";
@@ -11,6 +11,8 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { MultiSelect } from "primereact/multiselect";
 import { TreeSelect } from 'primereact/treeselect';
+import { Toast } from 'primereact/toast';
+
 
 const CadastroProduto: React.FC = (props) => {
   let emptyProduct = {
@@ -46,6 +48,19 @@ const CadastroProduto: React.FC = (props) => {
   const [globalFilter, setGlobalFilter] = useState(null);
   const [selectedCities2, setSelectedCities2] = useState(null);
   const [descricao, setDescricao] = useState(null);
+  const toast = useRef(null);
+
+
+  const deletaProduto = (e) => {
+    axios.delete(`http://localhost:8080/produto/excluir/${e.id}`).then( res =>{
+        const Novalista = produtos.filter((p)=> p.id !== e.id)
+        setProdutos(Novalista)
+        toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Produto Deletado', life: 3000 });
+    }).catch(erro=>{
+      console.error(erro)
+    })
+  }
+
 
   //  ------ Sugestoes -------
   const [nodes, setNodes] = useState(null);
@@ -54,7 +69,8 @@ const CadastroProduto: React.FC = (props) => {
   
     const getTreeNodes = () => {
         return fetch('data/treenodes.json').then(res => res.json())
-                .then(d => {console.log(d); return d.root});
+            .then(d => 
+                {return d.root});
     }
 
 
@@ -93,22 +109,7 @@ const CadastroProduto: React.FC = (props) => {
     setSub1mitted(false);
     setProduct1Dialog(false);
   };
-  const formatCurrency = (value) => {
-    return value.toLocaleString("en-US", {
-      style: "currency",
-      currency: "USD",
-    });
-  };
-
   
-
-  const onInput1Change = (e, description) => {
-    const val = (e.target && e.target.value) || "";
-    let _product = { ...product };
-    _product[`${description}`] = val;
-
-    setProduct1(_product);
-  };
 
   const onInputChange = (e, name) => {
     const val = (e.target && e.target.value) || "";
@@ -178,11 +179,12 @@ const CadastroProduto: React.FC = (props) => {
         <Button
           icon="pi pi-trash"
           className="p-button-rounded p-button-warning botaoTamanho"
-          onClick={() => confirmDeleteProduct(rowData)}
+          onClick={() => deletaProduto(rowData)}
         />
       </React.Fragment>
     );
   };
+  
 
   const categoriaTemplate = (rowData) => {
     return (
@@ -194,10 +196,7 @@ const CadastroProduto: React.FC = (props) => {
     );
   };
 
-  const confirmDeleteProduct = (product) => {
-    setProduct(product);
-    setDeleteProductDialog(true);
-  };
+  
 
   const editProduct1 = (product) => {
     setProduct1({ ...product });
@@ -263,12 +262,13 @@ const CadastroProduto: React.FC = (props) => {
   return (
     <>
       <div className="datatable-crud-demo">
+      <Toast ref={toast} />
         <div className="card">
           <Toolbar left={leftToolbarTemplate}></Toolbar>
           <DataTable
             value={produtos}
             selection={produtosSelecionados}
-            onSelectionChange={(e) => setProdutosSelecionados(e.value)}
+            onSelectionChange={(e) => setProdutosSelecionados(e.value) }
             header={header}
             globalFilter={globalFilter}
           >
