@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { PickList } from 'primereact/picklist';
 import '../cadastroPacote/cadastroPacote.css'
 import { Dropdown } from 'primereact/dropdown';
-
+import axios from 'axios';
 
 
 export const CadastroPacote: React.FC = () => {
@@ -23,6 +23,8 @@ export const CadastroPacote: React.FC = () => {
     const [nome, setNome ] = useState('');
     const [preco, setPreco ] = useState('');
     const [descricao, setDescricao ] = useState('');
+    const [categoria, setCategoria] = useState([])
+    const [produtos, setProdutos] = useState([])
     const [source, setSource] = useState([]);
     const [target, setTarget] = useState([]);
     const [selectedCity1, setSelectedCity1] = useState<any>(null);
@@ -36,7 +38,38 @@ export const CadastroPacote: React.FC = () => {
     const onCityChange = (e: { value: any}) => {
         setSelectedCity1(e.value);
     }
-   
+
+    // AXIOS "GET"
+
+    const getProdutos = (id) =>{
+        axios.get(``).then((res)=>{
+
+        }).catch((erro)=>{
+            console.error("Erro no GET do Axios", erro.response)
+        })
+    }
+    const getCategoria = (id) =>{
+        axios.get(``).then((res)=>{
+
+        }).catch((erro)=>{
+            console.error("Erro no GET do Axios", erro.response)
+        })
+    }
+
+    // AXIOS POST
+
+    const criaPacote = () =>{
+        axios.post(``,{
+            nome: nome,
+            preco: preco,
+            descricao: descricao
+        }).then((res)=>{
+
+        }).catch((erro)=>{
+            console.error("Erro de POST no Axios", erro.response)
+        })
+    }
+
     class ProductService {
 
         getProductsSmall() {
@@ -62,7 +95,6 @@ export const CadastroPacote: React.FC = () => {
         setTarget(event.target);
     }
 
-
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -85,7 +117,6 @@ export const CadastroPacote: React.FC = () => {
     const getFormErrorMessage = (name) => {
         return isFormFieldValid(name) && <small className="p-error">{formik.errors[name]}</small>;
     };
-
 
     const itemTemplate = (item) => {
         return (
@@ -155,7 +186,7 @@ export const CadastroPacote: React.FC = () => {
                 </div>
             </div>   
             
-         
+
         <div className='bottomPacote'>      
             <Button type="submit" label="Cadastrar Pacote"  className="mt-2 bottomPacote1" />
         </div>
