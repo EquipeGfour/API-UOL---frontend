@@ -47,7 +47,7 @@ const CadastroProduto: React.FC = (props) => {
   const [sub1mitted, setSub1mitted] = useState(false);
   const [globalFilter, setGlobalFilter] = useState(null);
   const [selectedCities2, setSelectedCities2] = useState(null);
-  const [descricao, setDescricao] = useState(null);
+  const [categoria, setCategoria] = useState(null);
   const toast = useRef(null);
 
 
@@ -84,6 +84,16 @@ const CadastroProduto: React.FC = (props) => {
         console.error("Erro", erro.response);
       });
   };
+
+  const cadastrarCategoria = () => {
+    axios.post("http://localhost:8080/categoria/cadastrar", {nome:categoria}).then((res)=> {
+      setCategoria("")
+      hideDialog()
+      toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Categoria Cadastrada', life: 3000 });
+    }).catch((error)=> {
+      console.error("Erro", error.response)
+    })
+  }
 
   const viewimage = (produto) => {
     return <img src={"images/product/uol.jpg"} />;
@@ -243,6 +253,25 @@ const CadastroProduto: React.FC = (props) => {
       />
     </React.Fragment>
   );
+
+  const botoesCategoria = (
+    <React.Fragment>
+      <Button
+        label="Cancelar"
+        icon="pi pi-times"
+        className="p-button-text botaoTamanho"
+        onClick={hideDialog}
+      />
+      <Button
+        label="Salvar"
+        onClick={(e)=> {
+          cadastrarCategoria()
+        }}
+        icon="pi pi-check"
+        className="p-button-text botaoTamanho"
+      />
+    </React.Fragment>
+  );
   const product1DialogFooter = (
     <React.Fragment>
       <Button
@@ -302,7 +331,7 @@ const CadastroProduto: React.FC = (props) => {
         header="Criar Categoria"
         modal
         className="p-fluid"
-        footer={productDialogFooter}
+        footer={botoesCategoria}
         onHide={hideDialog}
       >
         {product.image && <img src={`images/product/${product.image}`} />}
@@ -310,8 +339,8 @@ const CadastroProduto: React.FC = (props) => {
           <label htmlFor="name">Categoria</label>
           <InputText
             id="name"
-            value={product.name}
-            onChange={(e) => onInputChange(e, "name")}
+            value={categoria}
+            onChange={(e) => setCategoria(e.target.value)}
             required
             autoFocus
             className={classNames({ "p-invalid": submitted && !product.name })}
