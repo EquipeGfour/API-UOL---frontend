@@ -1,13 +1,10 @@
 import React from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Menubar } from "primereact/menubar";
-import { InputText } from "primereact/inputtext";
-import { Dialog } from "primereact/dialog";
 import "./navbar.css";
 import Uolicon from "../../imagens/Uolicon.png";
-import { Console } from "console";
 
-const Navbar: React.FC = (props) => {
+const Navbar: React.FC = () => {
     const navigate = useNavigate();
     const items = [
       {
@@ -31,6 +28,7 @@ const Navbar: React.FC = (props) => {
     },
     
   ];
+
   const end = (
     <a href="https://www.uol.com.br/">
       {" "}

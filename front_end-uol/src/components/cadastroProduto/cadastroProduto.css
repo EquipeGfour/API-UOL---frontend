@@ -45,3 +45,9 @@ width: 95%;
 margin: 0 auto;
 margin-top: 3rem;
 }
+.formatarFont{
+    font-family: Arial,sans-serif;
+}
+li {
+    list-style-type: none;
+  }

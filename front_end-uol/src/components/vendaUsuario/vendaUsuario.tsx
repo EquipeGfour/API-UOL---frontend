@@ -12,20 +12,17 @@ import { useParams } from 'react-router-dom';
 
 const VendaUsuario: React.FC = () => {
 
-    const [produtos, setProdutos] = useState([]);
     const [produto, setProduto] = useState();
     const [pacotes, setPacotes] = useState([]);
     const [nome , setNome] = useState('');
     const [descricao , setDescricao] = useState('');
     const [preco , setPreco] = useState('');
     const {idProduto, idCategoria} = useParams();
-    const [relacionados, setRelacionados] = useState([])
+    const [sugestoes, setSugestoes] = useState([])
 
     const amarrar = (id) => {
         axios.get(`http://localhost:8081/compra/amarrar/${id}`).then((res) => { 
-            setPacotes(res.data)
-            console.log(res.data);
-            
+            setPacotes(res.data)            
         }).catch((erro) => {
             console.error('Erro', erro.response)
         })
@@ -42,16 +39,13 @@ const VendaUsuario: React.FC = () => {
         })
     }
 
-    const produtosRelacionados = (idCategoria) => {
-        axios.get(`http://localhost:8081/compra/produtos-relacionados/${idCategoria}`).then((res) =>{
-            setRelacionados(res.data)
-            console.log(res.data);
+    const sugerir = (idProduto) => {
+        axios.get(`http://localhost:8081/compra/sugestao/${idProduto}`).then((res)=>{
+        setSugestoes(res.data)
         }).catch((erro) => {
             console.error('Erro na Função Get axios', erro.response)
         })
     }
-
-//`localhost:8081/compra/produtos-relacionados/${idCategoria}`
 
     class PhotoService {
         getImages() {
@@ -85,7 +79,7 @@ const VendaUsuario: React.FC = () => {
     useEffect(() => {
         vendaProduto(idProduto)
         amarrar(idProduto)
-        produtosRelacionados(idCategoria)
+        sugerir(idProduto)
     }, []);
 
     const itemTemplate = (item) => {
@@ -114,7 +108,6 @@ const VendaUsuario: React.FC = () => {
             </div>
         );
     }
-
 
     const bodyTemplate = () => {
         return <Skeleton></Skeleton>
@@ -148,30 +141,26 @@ const VendaUsuario: React.FC = () => {
                         </div>
             </div>
 
-
-
-
             {/* ---------- Compre Junto ---------- */}
 
-
-            <h5 className='text-center'>PACOTE SUGERIDOS</h5>
+            <h5 className='text-center'>Pacote Sugeridos</h5>
             
             <div className='comprejunto'>
                 {pacotes.map((pacote)=>(
                 <Card key={pacote.id} title={pacote.nome} subTitle={`Preço: R$ ${pacote.preco}`} style={{ width: '25em' }} footer={footer} header={header}>
                     <p className="m-0" style={{ lineHeight: '1.5' }}>{pacote.descricao}</p>
-                  {pacote.produtos.map((pprod)=>(
+                    {pacote.produtos.map((pprod)=>(
                     <ul>
                     <li>{pprod.nome}</li>
                     </ul>
-                  ))}
+                ))}
                 </Card>
                 ))}
             </div>
 
             <div className="carousel-demo">
                 <div className="card">
-                    <Carousel value={relacionados} numVisible={5} numScroll={3} responsiveOptions={responsiveOptions}
+                    <Carousel value={sugestoes} numVisible={5} numScroll={3} responsiveOptions={responsiveOptions}
                         itemTemplate={productTemplate} header={<h5>Produtos Semelhantes</h5>} />
                 </div>
             </div>
@@ -179,7 +168,3 @@ const VendaUsuario: React.FC = () => {
     )
 }
 export default VendaUsuario;
-
-function setImages(data: any): any {
-    throw new Error('Function not implemented.');
-}

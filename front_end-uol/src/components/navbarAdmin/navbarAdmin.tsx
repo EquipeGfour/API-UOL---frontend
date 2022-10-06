@@ -1,6 +1,5 @@
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Sidebar } from 'primereact/sidebar';
 import { Button } from 'primereact/button';
 import Uolicon from "../../imagens/Uolicon.png";

@@ -14,13 +14,14 @@ import { Toast } from 'primereact/toast';
 
 
 const CadastroProduto: React.FC = () => {
+
   let emptyProduct = {
-    id: null,
-    name: "",
-    image: null,
-    description: "",
-    category: null,
-    price: "",
+    id: '',
+    name: '',
+    image: '',
+    description: '',
+    category: '',
+    price: '',
   };
 
   const [produtos, setProdutos] = useState([]);
@@ -32,11 +33,14 @@ const CadastroProduto: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [sub1mitted, setSub1mitted] = useState(false);
   const [globalFilter, setGlobalFilter] = useState(null);
-  const [selectedCities2, setSelectedCities2] = useState(null);
   const [categoria, setCategoria] = useState(null);
   const [categorias, setCategorias] = useState([]);
-  const [categoriaSelecioanda, setCategoriaSelecionada] = useState(null)
-  const [produtosSugestao, setProdutosSugestao] = useState(null)
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState(null);
+  const [produtosSugestao, setProdutosSugestao] = useState(null);
+  const [nome, setNome] = useState('');
+  const [descricao, setDescricao] = useState('');
+  const [preco,setPreco] = useState('');
+  const [sugestao, setSugestao] = useState('');
   const toast = useRef(null);
 
 
@@ -71,12 +75,14 @@ const CadastroProduto: React.FC = () => {
   }
 
   const buscarCategoriaId = (e) =>{
+
     if(e.value.length){
       let idsFormatado = ''
       e.value.forEach((arrayItem) =>{
         idsFormatado = idsFormatado + arrayItem.id + ',';
       });
       let ids = idsFormatado.slice(0, -1)
+
       setCategoriaSelecionada(e.value)
       axios.get(`http://localhost:8081/compra/selecionar-sugestoes/${ids}`).then((res) => {
         setProdutosSugestao(res.data)
@@ -94,6 +100,28 @@ const CadastroProduto: React.FC = () => {
       setCategoria("")
       hideDialog()
       toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Categoria Cadastrada', life: 3000 });
+    }).catch((error) => {
+      console.error("Erro", error.response)
+    })
+  }
+
+  const cadastrarProduto = () => {
+    let dados = {
+      nome:nome,
+      descricao:descricao,
+      preco:preco,
+      categorias: categoriaSelecionada,
+      sugestao: sugestao
+    }
+    axios.post("http://localhost:8080/produto/cadastrar",dados).then((res)=>{
+      setNome('');
+      setDescricao('');
+      setCategoriaSelecionada('');
+      setPreco('');
+      setSugestao('');
+      hide1Dialog();
+      toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Produto Cadastrada', life: 3000 });
+      buscarProdutos();
     }).catch((error) => {
       console.error("Erro", error.response)
     })
@@ -124,18 +152,10 @@ const CadastroProduto: React.FC = () => {
     setSubmitted(false);
     setProductDialog(false);
   };
+
   const hide1Dialog = () => {
     setSub1mitted(false);
     setProduct1Dialog(false);
-  };
-
-
-  const onInputChange = (e, name) => {
-    const val = (e.target && e.target.value) || "";
-    let _product = { ...product };
-    _product[`${name}`] = val;
-
-    setProduct(_product);
   };
 
   const leftToolbarTemplate = () => {
@@ -162,8 +182,6 @@ const CadastroProduto: React.FC = () => {
     );
   };
 
-
-
   const actionBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
@@ -181,18 +199,15 @@ const CadastroProduto: React.FC = () => {
     );
   };
 
-
   const categoriaTemplate = (rowData) => {
     return (
       <ul>
         {rowData.categorias?.map((c) => (
-          <li key={c.id}>{c.nome}</li>
+          <li className="formatarFont" key={c.id}>{c.nome}</li>
         ))}
       </ul>
     );
   };
-
-
 
   const editProduct1 = (product) => {
     setProduct1({ ...product });
@@ -225,22 +240,6 @@ const CadastroProduto: React.FC = () => {
     }
   };
 
-  const productDialogFooter = (
-    <React.Fragment>
-      <Button
-        label="Cancelar"
-        icon="pi pi-times"
-        className="p-button-text botaoTamanho"
-        onClick={hideDialog}
-      />
-      <Button
-        label="Salvar"
-        icon="pi pi-check"
-        className="p-button-text botaoTamanho"
-      />
-    </React.Fragment>
-  );
-
   const botoesCategoria = (
     <React.Fragment>
       <Button
@@ -260,7 +259,7 @@ const CadastroProduto: React.FC = () => {
     </React.Fragment>
   );
 
-  const product1DialogFooter = (
+  const botoesModalProduto = (
     <React.Fragment>
       <Button
         label="Cancelar"
@@ -272,6 +271,7 @@ const CadastroProduto: React.FC = () => {
         label="Salvar"
         icon="pi pi-check"
         className="p-button-text botaoTamanho"
+        onClick={cadastrarProduto}
       />
     </React.Fragment>
   );
@@ -345,7 +345,7 @@ const CadastroProduto: React.FC = () => {
         header="Criar Produto"
         modal
         className="p-fluid "
-        footer={product1DialogFooter}
+        footer={botoesModalProduto}
         onHide={hide1Dialog}
       >
         {product.image && <img src={`images/product/${product.image}`} />}
@@ -353,8 +353,8 @@ const CadastroProduto: React.FC = () => {
           <label htmlFor="name">Nome Produto</label>
           <InputText
             id="name"
-            value={product.name}
-            onChange={(e) => onInputChange(e, "name")}
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
             required
             autoFocus
             className={classNames({ "p-invalid": sub1mitted && !product.name })}
@@ -367,8 +367,8 @@ const CadastroProduto: React.FC = () => {
           <label htmlFor="Descricao">Descrição</label>
           <InputTextarea
             id="description"
-            value={product.description}
-            onChange={(e) => onInputChange(e, "description")}
+            value={descricao}
+            onChange={(e) => setDescricao(e.target.value)}
             required
           />
           {sub1mitted && !product.description && (
@@ -379,8 +379,8 @@ const CadastroProduto: React.FC = () => {
           <label htmlFor="price">Preço</label>
           <InputText
             id="price"
-            value={product.price}
-            onChange={(e) => onInputChange(e, "price")}
+            value={preco}
+            onChange={(e) => setPreco(e.target.value)}
             required
             autoFocus
             className={classNames({
@@ -394,7 +394,7 @@ const CadastroProduto: React.FC = () => {
         <div className="field">
           <label htmlFor="Vincular">Vincular Categoria</label>
           <MultiSelect
-            value={categoriaSelecioanda}
+            value={categoriaSelecionada}
             options={categorias}
             onChange={(e) => buscarCategoriaId(e)}
             optionLabel="nome"
@@ -405,11 +405,10 @@ const CadastroProduto: React.FC = () => {
         <div className="field">
           <label htmlFor="Sugestões">Sugestões de Produtos</label>
           <MultiSelect
-            value={selectedCities2}
+            value={sugestao}
             options={produtosSugestao}
-            onChange={(e) => setSelectedCities2(e.value)}
+            onChange={(e) => setSugestao(e.value)}
             optionLabel="nome"
-            optionValue="id"
             placeholder="Selecione a Categoria"
             display="chip"
           />

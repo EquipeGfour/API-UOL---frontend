@@ -40,8 +40,6 @@ const HomeUsuario: React.FC = (props) => {
         }
     }
 
-
-    const [products, setProducts] = useState([]);
     const responsiveOptions = [
         {
             breakpoint: '1024px',
