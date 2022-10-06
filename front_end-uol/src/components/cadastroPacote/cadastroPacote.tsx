@@ -8,12 +8,13 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import { Password } from 'primereact/password';
 import { Toolbar } from 'primereact/toolbar';
 import { classNames } from 'primereact/utils';
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { PickList } from 'primereact/picklist';
 import '../cadastroPacote/cadastroPacote.css'
 import { Dropdown } from 'primereact/dropdown';
 import axios from 'axios';
+import { MultiSelect } from 'primereact/multiselect';
 
 
 export const CadastroPacote: React.FC = () => {
@@ -23,33 +24,34 @@ export const CadastroPacote: React.FC = () => {
     const [nome, setNome ] = useState('');
     const [preco, setPreco ] = useState('');
     const [descricao, setDescricao ] = useState('');
-    const [categoria, setCategoria] = useState([])
+    const [nomepacote, setNomepacote ] = useState('');
+    const [precopacote, setPrecopacote ] = useState('');
+    const [descricaopacote, setDescricaopacote ] = useState('');
+    const {idProduto, idCategoria} = useParams();
+    const [categorias, setCategorias] = useState([])
     const [produtos, setProdutos] = useState([])
     const [source, setSource] = useState([]);
     const [target, setTarget] = useState([]);
-    const [selectedCity1, setSelectedCity1] = useState<any>(null);
-    const cities = [
-        { name: 'Stremer', code: 'NY' },
-        { name: 'Servicos', code: 'RM' },
-        { name: 'Entreterimento', code: 'LDN' },
-        { name: 'Conteudo', code: 'IST' },
-        
-    ];
-    const onCityChange = (e: { value: any}) => {
-        setSelectedCity1(e.value);
-    }
+    const [selectedCategory1, setSelectedCategory1] = useState<any>(null);
+    const [selectedCategories, setSelectedCategories] = useState(null);
 
     // AXIOS "GET"
-
-    const getProdutos = (id) =>{
-        axios.get(``).then((res)=>{
+    const getProdutos = () =>{
+        axios.get(`http://localhost:8080/produto/buscar`).then((res)=>{
+            console.log(res.data);            
+            setNome(res.data.nome)
+            setDescricao(res.data.descricao)
+            setPreco(res.data.preco)
 
         }).catch((erro)=>{
             console.error("Erro no GET do Axios", erro.response)
         })
     }
-    const getCategoria = (id) =>{
-        axios.get(``).then((res)=>{
+    const getCategoria = () =>{
+        axios.get(`http://localhost:8080/categoria/buscar`).then((res)=>{
+        console.log(res.data);
+        
+        setCategorias(res.data)
 
         }).catch((erro)=>{
             console.error("Erro no GET do Axios", erro.response)
@@ -57,7 +59,6 @@ export const CadastroPacote: React.FC = () => {
     }
 
     // AXIOS POST
-
     const criaPacote = () =>{
         axios.post(``,{
             nome: nome,
@@ -70,24 +71,26 @@ export const CadastroPacote: React.FC = () => {
         })
     }
 
-    class ProductService {
+    // class ProductService {
 
-        getProductsSmall() {
-            return fetch('data/products-small.json').then(res => res.json()).then(d => d.data);
-        }
+    //     getProductsSmall() {
+    //         return fetch('data/products-small.json').then(res => res.json()).then(d => d.data);
+    //     }
     
-        getProducts() {
-            return fetch('data/products.json').then(res => res.json()).then(d => d.data);
-        }
+    //     getProducts() {
+    //         return fetch('data/products.json').then(res => res.json()).then(d => d.data);
+    //     }
     
-        getProductsWithOrdersSmall() {
-            return fetch('data/products-orders-small.json').then(res => res.json()).then(d => d.data);
-        }
-    }
+    //     getProductsWithOrdersSmall() {
+    //         return fetch('data/products-orders-small.json').then(res => res.json()).then(d => d.data);
+    //     }
+    // }
 
-    const productService = new ProductService();
+ 
     useEffect(() => {
-        productService.getProductsSmall().then(data => setSource(data));
+
+        getProdutos()
+        getCategoria()
     }, []);
 
     const onChange = (event) => {
@@ -122,15 +125,15 @@ export const CadastroPacote: React.FC = () => {
         return (
             <div className="product-item pick1">
                 <div className="image-container">
-                    <img src={`images/product/${item.image}`} alt={item.name} />
+                    <img src={`images/product/${item.image}`} alt={item.nome} />
                 </div>
                 <div className="product-list-detail">
-                    <h5 className="mb-2">{item.name}</h5>
+                    <h5 className="mb-2">{item.nome}</h5>
                     <i className="pi pi-tag product-category-icon"></i>
                     <span className="product-category">{item.category}</span>
                 </div>
                 <div className="product-list-action">
-                    <h6 className="mb-2">${item.price}</h6>
+                    <h6 className="mb-2">${item.preco}</h6>
                     <span className={`product-badge status-${item.inventoryStatus.toLowerCase()}`}>{item.inventoryStatus}</span>
                 </div>
             </div>
@@ -151,7 +154,6 @@ export const CadastroPacote: React.FC = () => {
                             {getFormErrorMessage('name')}
                         </div>
 
-
                         <div className="field">
                             <span className="p-float-label">
                                 <InputText id="preco" name="preco" value={preco} onChange={e => { setPreco(e.target.value) }} autoFocus className={classNames({ 'p-invalid': isFormFieldValid('preco') })} />
@@ -167,11 +169,19 @@ export const CadastroPacote: React.FC = () => {
                             </span>
                         </div>
 
-                        <div className="dropdown-demo justify-content-center">
-                            <div className="card">
-                                <Dropdown value={selectedCity1} options={cities} onChange={onCityChange} optionLabel="name" placeholder="Selecione a Categoria" />
-                            </div>
-                        </div>
+                        <div className="field">
+                            <label htmlFor="Vincular">Vincular Categoria</label>
+                            <MultiSelect
+                                value={selectedCategories}
+                                options={categorias}
+                                onChange={(e) => setSelectedCategories(e.value)}
+                                optionLabel="nome"
+                                optionValue="id"
+                                
+                                placeholder="Selecione a Categoria"
+                                display="chip"
+                            />
+                        </div>                        
                     </form>
                 </div>
             </div>
