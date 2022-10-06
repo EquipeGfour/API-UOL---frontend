@@ -13,7 +13,7 @@ import { MultiSelect } from "primereact/multiselect";
 import { Toast } from 'primereact/toast';
 
 
-const CadastroProduto: React.FC = (props) => {
+const CadastroProduto: React.FC = () => {
   let emptyProduct = {
     id: null,
     name: "",
@@ -70,12 +70,23 @@ const CadastroProduto: React.FC = (props) => {
     })
   }
 
-  const buscarCategoriaId = (id) =>{
-    axios.get(`http://localhost:8080/compra/produtos-relacionados/${id}`).then((res) => {
-      setCategorias(res.data)
-    }).catch((erro) => {
-      console.error("Erro", erro.response);
-    })
+  const buscarCategoriaId = (e) =>{
+    if(e.value.length){
+      let idsFormatado = ''
+      e.value.forEach((arrayItem) =>{
+        idsFormatado = idsFormatado + arrayItem.id + ',';
+      });
+      let ids = idsFormatado.slice(0, -1)
+      setCategoriaSelecionada(e.value)
+      axios.get(`http://localhost:8081/compra/selecionar-sugestoes/${ids}`).then((res) => {
+        setProdutosSugestao(res.data)
+      }).catch((erro) => {
+        console.error("Erro", erro.response);
+      })
+    }else{
+      setCategoriaSelecionada(null)
+      setProdutosSugestao(null)
+    }
   }
 
   const cadastrarCategoria = () => {
@@ -175,7 +186,7 @@ const CadastroProduto: React.FC = (props) => {
     return (
       <ul>
         {rowData.categorias?.map((c) => (
-          <li>{c.nome}</li>
+          <li key={c.id}>{c.nome}</li>
         ))}
       </ul>
     );
@@ -385,9 +396,8 @@ const CadastroProduto: React.FC = (props) => {
           <MultiSelect
             value={categoriaSelecioanda}
             options={categorias}
-            onChange={(e) => setCategoriaSelecionada(e.value)}
+            onChange={(e) => buscarCategoriaId(e)}
             optionLabel="nome"
-
             placeholder="Selecione a Categoria"
             display="chip"
           />
@@ -396,7 +406,7 @@ const CadastroProduto: React.FC = (props) => {
           <label htmlFor="Sugestões">Sugestões de Produtos</label>
           <MultiSelect
             value={selectedCities2}
-            options={categoriaSelecioanda}
+            options={produtosSugestao}
             onChange={(e) => setSelectedCities2(e.value)}
             optionLabel="nome"
             optionValue="id"
