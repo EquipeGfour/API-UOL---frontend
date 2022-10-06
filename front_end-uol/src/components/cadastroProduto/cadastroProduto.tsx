@@ -48,6 +48,7 @@ const CadastroProduto: React.FC = (props) => {
   const [globalFilter, setGlobalFilter] = useState(null);
   const [selectedCities2, setSelectedCities2] = useState(null);
   const [categoria, setCategoria] = useState(null);
+  const [categorias, setCategorias] = useState([])
   const toast = useRef(null);
 
 
@@ -85,6 +86,15 @@ const CadastroProduto: React.FC = (props) => {
       });
   };
 
+  const buscarCategoria = () => {
+    axios.get(`http://localhost:8080/categoria/buscar`).then((res)=>{
+      console.log(res.data);
+      setCategorias(res.data)
+    }).catch((erro)=>{
+         console.error("Erro", erro.response);
+    })
+  }
+
   const cadastrarCategoria = () => {
     axios.post("http://localhost:8080/categoria/cadastrar", {nome:categoria}).then((res)=> {
       setCategoria("")
@@ -93,6 +103,22 @@ const CadastroProduto: React.FC = (props) => {
     }).catch((error)=> {
       console.error("Erro", error.response)
     })
+  }
+
+  useEffect(() => {
+    getTreeNodes().then(data => setNodes(data));
+    buscarProdutos();
+    buscarCategoria();
+  }, []);
+
+  const selectedItemTemplate = (option) => {
+
+      return (
+        <div className="flex gap-2">
+            <InputText value={'aaaaaaaaaa'} />
+            <Button label="Reset"/>
+        </div>
+    )
   }
 
   const viewimage = (produto) => {
@@ -153,30 +179,7 @@ const CadastroProduto: React.FC = (props) => {
     );
   };
 
-  class ProductService {
-    getProductsSmall() {
-      return fetch("data/products-small.json")
-        .then((res) => res.json())
-        .then((d) => d.data);
-    }
 
-    getProducts() {
-      return fetch("data/products.json")
-        .then((res) => res.json())
-        .then((d) => d.data);
-    }
-
-    getProductsWithOrdersSmall() {
-      return fetch("data/products-orders-small.json")
-        .then((res) => res.json())
-        .then((d) => d.data);
-    }
-  }
-
-  React.useEffect(() => {
-    getTreeNodes().then(data => setNodes(data));
-    buscarProdutos();
-  }, []);
 
   const actionBodyTemplate = (rowData) => {
     return (
@@ -238,6 +241,7 @@ const CadastroProduto: React.FC = (props) => {
       setGlobalFilter(e);
     }
   };
+  
   const productDialogFooter = (
     <React.Fragment>
       <Button
@@ -272,6 +276,7 @@ const CadastroProduto: React.FC = (props) => {
       />
     </React.Fragment>
   );
+
   const product1DialogFooter = (
     <React.Fragment>
       <Button
@@ -407,9 +412,11 @@ const CadastroProduto: React.FC = (props) => {
           <label htmlFor="Vincular">Vincular Categoria</label>
           <MultiSelect
             value={selectedCities2}
-            options={cities}
+            options={categorias}
             onChange={(e) => setSelectedCities2(e.value)}
-            optionLabel="name"
+            optionLabel="nome"
+            optionValue="id"
+            
             placeholder="Selecione a Categoria"
             display="chip"
           />
