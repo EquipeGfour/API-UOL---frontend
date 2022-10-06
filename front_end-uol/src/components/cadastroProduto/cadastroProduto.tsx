@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./cadastroProduto.css";
 import { classNames } from "primereact/utils";
 import { DataTable } from "primereact/datatable";
@@ -10,7 +10,6 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { MultiSelect } from "primereact/multiselect";
-import { TreeSelect } from 'primereact/treeselect';
 import { Toast } from 'primereact/toast';
 
 
@@ -22,57 +21,34 @@ const CadastroProduto: React.FC = (props) => {
     description: "",
     category: null,
     price: "",
-    quantity: 0,
-    rating: 0,
-    inventoryStatus: "INSTOCK",
   };
-  const cities = [
-    { name: "Streaming", code: "SM" },
-    { name: "Serviços", code: "SE" },
-    { name: "Entretenimento", code: "EM" },
-    { name: "Conteudo", code: "CON" },
-  ];
 
   const [produtos, setProdutos] = useState([]);
   const [produtosSelecionados, setProdutosSelecionados] = useState([]);
-  const [products, setProducts] = useState(null);
   const [productDialog, setProductDialog] = useState(false);
   const [product1Dialog, setProduct1Dialog] = useState(false);
-  const [deleteProductDialog, setDeleteProductDialog] = useState(false);
-  const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
   const [product, setProduct] = useState(emptyProduct);
   const [product1, setProduct1] = useState(emptyProduct);
-  const [selectedProducts, setSelectedProducts] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [sub1mitted, setSub1mitted] = useState(false);
   const [globalFilter, setGlobalFilter] = useState(null);
   const [selectedCities2, setSelectedCities2] = useState(null);
   const [categoria, setCategoria] = useState(null);
-  const [categorias, setCategorias] = useState([])
+  const [categorias, setCategorias] = useState([]);
+  const [categoriaSelecioanda, setCategoriaSelecionada] = useState(null)
+  const [produtosSugestao, setProdutosSugestao] = useState(null)
   const toast = useRef(null);
 
 
   const deletaProduto = (e) => {
-    axios.delete(`http://localhost:8080/produto/excluir/${e.id}`).then( res =>{
-        const Novalista = produtos.filter((p)=> p.id !== e.id)
-        setProdutos(Novalista)
-        toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Produto Deletado', life: 3000 });
-    }).catch(erro=>{
+    axios.delete(`http://localhost:8080/produto/excluir/${e.id}`).then(res => {
+      const Novalista = produtos.filter((p) => p.id !== e.id)
+      setProdutos(Novalista)
+      toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Produto Deletado', life: 3000 });
+    }).catch(erro => {
       console.error(erro)
     })
   }
-
-
-  //  ------ Sugestoes -------
-  const [nodes, setNodes] = useState(null);
-  const [selectedNodeKeys1, setSelectedNodeKeys1] = useState(null);
-
-  
-    const getTreeNodes = () => {
-        return fetch('data/treenodes.json').then(res => res.json())
-            .then(d => 
-                {return d.root});
-    }
 
 
   const buscarProdutos = () => {
@@ -87,39 +63,35 @@ const CadastroProduto: React.FC = (props) => {
   };
 
   const buscarCategoria = () => {
-    axios.get(`http://localhost:8080/categoria/buscar`).then((res)=>{
-      console.log(res.data);
+    axios.get(`http://localhost:8080/categoria/buscar`).then((res) => {
       setCategorias(res.data)
-    }).catch((erro)=>{
-         console.error("Erro", erro.response);
+    }).catch((erro) => {
+      console.error("Erro", erro.response);
+    })
+  }
+
+  const buscarCategoriaId = (id) =>{
+    axios.get(`http://localhost:8080/compra/produtos-relacionados/${id}`).then((res) => {
+      setCategorias(res.data)
+    }).catch((erro) => {
+      console.error("Erro", erro.response);
     })
   }
 
   const cadastrarCategoria = () => {
-    axios.post("http://localhost:8080/categoria/cadastrar", {nome:categoria}).then((res)=> {
+    axios.post("http://localhost:8080/categoria/cadastrar", { nome: categoria }).then((res) => {
       setCategoria("")
       hideDialog()
       toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Categoria Cadastrada', life: 3000 });
-    }).catch((error)=> {
+    }).catch((error) => {
       console.error("Erro", error.response)
     })
   }
 
   useEffect(() => {
-    getTreeNodes().then(data => setNodes(data));
     buscarProdutos();
     buscarCategoria();
   }, []);
-
-  const selectedItemTemplate = (option) => {
-
-      return (
-        <div className="flex gap-2">
-            <InputText value={'aaaaaaaaaa'} />
-            <Button label="Reset"/>
-        </div>
-    )
-  }
 
   const viewimage = (produto) => {
     return <img src={"images/product/uol.jpg"} />;
@@ -145,7 +117,7 @@ const CadastroProduto: React.FC = (props) => {
     setSub1mitted(false);
     setProduct1Dialog(false);
   };
-  
+
 
   const onInputChange = (e, name) => {
     const val = (e.target && e.target.value) || "";
@@ -197,7 +169,7 @@ const CadastroProduto: React.FC = (props) => {
       </React.Fragment>
     );
   };
-  
+
 
   const categoriaTemplate = (rowData) => {
     return (
@@ -209,7 +181,7 @@ const CadastroProduto: React.FC = (props) => {
     );
   };
 
-  
+
 
   const editProduct1 = (product) => {
     setProduct1({ ...product });
@@ -241,7 +213,7 @@ const CadastroProduto: React.FC = (props) => {
       setGlobalFilter(e);
     }
   };
-  
+
   const productDialogFooter = (
     <React.Fragment>
       <Button
@@ -268,7 +240,7 @@ const CadastroProduto: React.FC = (props) => {
       />
       <Button
         label="Salvar"
-        onClick={(e)=> {
+        onClick={(e) => {
           cadastrarCategoria()
         }}
         icon="pi pi-check"
@@ -296,13 +268,13 @@ const CadastroProduto: React.FC = (props) => {
   return (
     <>
       <div className="datatable-crud-demo">
-      <Toast ref={toast} />
+        <Toast ref={toast} />
         <div className="card">
           <Toolbar left={leftToolbarTemplate}></Toolbar>
           <DataTable
             value={produtos}
             selection={produtosSelecionados}
-            onSelectionChange={(e) => setProdutosSelecionados(e.value) }
+            onSelectionChange={(e) => setProdutosSelecionados(e.value)}
             header={header}
             globalFilter={globalFilter}
           >
@@ -411,19 +383,26 @@ const CadastroProduto: React.FC = (props) => {
         <div className="field">
           <label htmlFor="Vincular">Vincular Categoria</label>
           <MultiSelect
-            value={selectedCities2}
+            value={categoriaSelecioanda}
             options={categorias}
-            onChange={(e) => setSelectedCities2(e.value)}
+            onChange={(e) => setCategoriaSelecionada(e.value)}
             optionLabel="nome"
-            optionValue="id"
-            
+
             placeholder="Selecione a Categoria"
             display="chip"
           />
         </div>
         <div className="field">
-        <label htmlFor="Sugestões">Sugestões de Produtos</label>
-        <TreeSelect value={selectedNodeKeys1} options={nodes} onChange={(e) => setSelectedNodeKeys1(e.value)} selectionMode="multiple" metaKeySelection={false} placeholder="Selecione a Categoria"></TreeSelect>
+          <label htmlFor="Sugestões">Sugestões de Produtos</label>
+          <MultiSelect
+            value={selectedCities2}
+            options={categoriaSelecioanda}
+            onChange={(e) => setSelectedCities2(e.value)}
+            optionLabel="nome"
+            optionValue="id"
+            placeholder="Selecione a Categoria"
+            display="chip"
+          />
         </div>
       </Dialog>
     </>
