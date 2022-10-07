@@ -1,5 +1,6 @@
 .botaoTamanho {
     padding: 15px 45px!important;
+    
 }
 .datatable-crud-demo .table-header {
     display: flex;
@@ -38,6 +39,11 @@
     .datatable-crud-demo .table-header .p-input-icon-left, .datatable-crud-demo .table-header input {
         width: 100%;
     }
+}
+
+.excluir {
+    background: #EF4444 !important;
+    border: 1px solid #EF4444 !important;
 }
 
 .datatable-crud-demo{

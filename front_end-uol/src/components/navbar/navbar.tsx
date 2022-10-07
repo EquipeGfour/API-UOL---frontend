@@ -8,24 +8,24 @@ const Navbar: React.FC = () => {
     const navigate = useNavigate();
     const items = [
       {
-        label: "Home",
+        label: "Home Admin",
         command: (event) => {
-        navigate("/");
+        navigate("/HomeAdmin");
       },
     },
-    {
-        label: "Login",
-        command: (event) => {
-        navigate("/login");
-        },
-    },
+    // {
+    //     label: "Login",
+    //     command: (event) => {
+    //     navigate("/login");
+    //     },
+    // },
 
-    {
-      label: "Cadastro",
-      command: (event) => {
-        navigate("/cadastro-usuario");
-      },
-    },
+    // {
+    //   label: "Cadastro",
+    //   command: (event) => {
+    //     navigate("/cadastro-usuario");
+    //   },
+    // },
     
   ];
 

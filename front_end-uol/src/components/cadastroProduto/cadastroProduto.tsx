@@ -138,9 +138,9 @@ const CadastroProduto: React.FC = () => {
     buscarCategoria();
   }, []);
 
-  const viewimage = (produto) => {
-    return <img src={"images/product/uol.jpg"} />;
-  };
+  // const viewimage = (produto) => {
+  //   return <img src={"images/product/uol.jpg"} />;
+  // };
 
   const openNew = () => {
     setProduct(emptyProduct);
@@ -179,11 +179,11 @@ const CadastroProduto: React.FC = () => {
           className="p-button-success mr-1 botaoTamanho"
           onClick={openNew}
         />
-        <Button
+        {/* <Button
           label="Delete"
           icon="pi pi-trash"
           className="p-button-danger botaoTamanho"
-        />
+        /> */}
       </React.Fragment>
     );
   };
@@ -191,14 +191,14 @@ const CadastroProduto: React.FC = () => {
   const actionBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <Button
+        {/* <Button
           icon="pi pi-pencil"
           className="p-button-rounded p-button-success mr-2 botaoTamanho"
           onClick={() => editProduct1(rowData)}
-        />
+        /> */}
         <Button
-          icon="pi pi-trash"
-          className="p-button-rounded p-button-warning botaoTamanho"
+          icon="pi pi-trash "
+          className="p-button-rounded p-button-warning botaoTamanho excluir"
           onClick={() => deletaProduto(rowData)}
         />
       </React.Fragment>
@@ -302,7 +302,7 @@ const CadastroProduto: React.FC = () => {
             ></Column>
             <Column field="nome" sortable header="Nome"></Column>
             <Column field="descricao" sortable header="Descrição"></Column>
-            <Column field="image" header="Imagem" body={viewimage}></Column>
+            {/* <Column field="image" header="Imagem" body={viewimage}></Column> */}
             <Column field="preco" sortable header="Preço"></Column>
             <Column
               field="categoria"
