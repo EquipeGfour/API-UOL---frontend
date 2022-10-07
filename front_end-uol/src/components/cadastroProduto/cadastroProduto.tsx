@@ -44,17 +44,9 @@ const CadastroProduto: React.FC = () => {
   const toast = useRef(null);
 
 
-  const deletaProduto = (e) => {
-    axios.delete(`http://localhost:8080/produto/excluir/${e.id}`).then(res => {
-      const Novalista = produtos.filter((p) => p.id !== e.id)
-      setProdutos(Novalista)
-      toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Produto Deletado', life: 3000 });
-    }).catch(erro => {
-      console.error(erro)
-    })
-  }
 
 
+  // AXIOS "GET"
   const buscarProdutos = () => {
     axios
       .get("http://localhost:8080/produto/buscar")
@@ -95,6 +87,8 @@ const CadastroProduto: React.FC = () => {
     }
   }
 
+
+  // AXIOS POST
   const cadastrarCategoria = () => {
     axios.post("http://localhost:8080/categoria/cadastrar", { nome: categoria }).then((res) => {
       setCategoria("")
@@ -124,6 +118,18 @@ const CadastroProduto: React.FC = () => {
       buscarProdutos();
     }).catch((error) => {
       console.error("Erro", error.response)
+    })
+  }
+
+
+  // AXIOS DELETE
+  const deletaProduto = (e) => {
+    axios.delete(`http://localhost:8080/produto/excluir/${e.id}`).then(res => {
+      const Novalista = produtos.filter((p) => p.id !== e.id)
+      setProdutos(Novalista)
+      toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Produto Deletado', life: 3000 });
+    }).catch(erro => {
+      console.error(erro)
     })
   }
 
