@@ -47,7 +47,8 @@ margin-top: 3rem;
 }
 .formatarFont{
     font-family: Arial,sans-serif;
+    margin-top: 1px;
 }
 li {
     list-style-type: none;
-  }
+}
