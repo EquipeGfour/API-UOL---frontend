@@ -47,11 +47,11 @@ type state = {
             <Routes>
               <Route path='login' element={<LoginUsuario/>}/>
               <Route path='cadastro-usuario' element={<CadastroUsuario/>}/>
-              <Route path='/' element={<HomeUsuario/>}/>
+              <Route path='/home-usuario' element={<HomeUsuario/>}/>
               <Route path='venda-usuario/categoria/:idCategoria/produto/:idProduto' element={<VendaUsuario/>}/>
               <Route path='venda-usuario' element={<VendaUsuario/>}/>
               <Route path='cadastro-produto' element={<CadastroProduto/>}/>
-              <Route path='HomeAdmin' element={<HomeAdmin/>}/>
+              <Route path='/' element={<HomeAdmin/>}/>
               <Route path='cadastro-pacote' element ={<CadastroPacote/>}></Route>
             </Routes>
           </BrowserRouter>

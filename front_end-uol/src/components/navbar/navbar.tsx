@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
       {
         label: "Home Admin",
         command: (event) => {
-        navigate("/HomeAdmin");
+        navigate("/");
       },
     },
     // {
