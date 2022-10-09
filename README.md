@@ -36,6 +36,22 @@ npm start
 
 <h2> :computer: Demonstração da Aplicação
 
+Interfaces de Login, Cadastro de Usuário e Visualização dos Produtos
 <h1 align="center">
 <img src = "./gif/aplicacao.gif"></h1>
+<br>
+
+Cadastro Categoria:
+<h1 align="center">
+<img src = "./gif/Categoria.gif"></h1>
+<br>
+
+Cadastro Produto:
+<h1 align="center">
+<img src = "./gif/CadastroProduto.gif"></h1>
+<br>
+
+Cadastro Pacote:
+<h1 align="center">
+<img src = "./gif/Pacote.gif"></h1>
 <br>
