@@ -34,9 +34,9 @@ npm start
 ```
 <br>
 
-<h2> :computer: Demonstração da Aplicação
+<h2> :computer: Demonstração da Aplicação</h2>
 
-Interfaces de Login, Cadastro de Usuário e Visualização dos Produtos
+Interfaces de Login, Cadastro de Usuário e Visualização dos Produtos:
 <h1 align="center">
 <img src = "./gif/aplicacao.gif"></h1>
 <br>
