@@ -40,7 +40,7 @@ export const CadastroPacote: React.FC = () => {
             setPrecopacote('');
             setDescricaopacote('');
             setTarget([])
-            toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Categoria Cadastrada', life: 3000 });
+            toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Pacote Cadastrado', life: 3000 });
         }).catch((error)=>{
             console.error("Erro de POST no Axios", error.response)
         })

@@ -91,9 +91,10 @@ const CadastroProduto: React.FC = () => {
   // AXIOS POST
   const cadastrarCategoria = () => {
     axios.post("http://localhost:8080/categoria/cadastrar", { nome: categoria }).then((res) => {
-      setCategoria("")
+      setCategoria('')
       hideDialog()
       toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Categoria Cadastrada', life: 3000 });
+      buscarCategoria()
     }).catch((error) => {
       console.error("Erro", error.response)
     })
@@ -114,7 +115,7 @@ const CadastroProduto: React.FC = () => {
       setPreco('');
       setSugestao('');
       hide1Dialog();
-      toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Produto Cadastrada', life: 3000 });
+      toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Produto Cadastrado', life: 3000 });
       buscarProdutos();
     }).catch((error) => {
       console.error("Erro", error.response)
@@ -136,6 +137,7 @@ const CadastroProduto: React.FC = () => {
   useEffect(() => {
     buscarProdutos();
     buscarCategoria();
+    
   }, []);
 
   // const viewimage = (produto) => {
@@ -168,13 +170,13 @@ const CadastroProduto: React.FC = () => {
     return (
       <React.Fragment>
         <Button
-          label="Novo"
+          label="Novo Produto"
           icon="pi pi-plus"
           className="p-button-success mr-1 botaoTamanho"
           onClick={open1New}
         />
         <Button
-          label="Categoria"
+          label="Nova Categoria"
           icon="pi pi-plus"
           className="p-button-success mr-1 botaoTamanho"
           onClick={openNew}
@@ -303,7 +305,7 @@ const CadastroProduto: React.FC = () => {
             <Column field="nome" sortable header="Nome"></Column>
             <Column field="descricao" sortable header="Descrição"></Column>
             {/* <Column field="image" header="Imagem" body={viewimage}></Column> */}
-            <Column field="preco" sortable header="Preço"></Column>
+            <Column field="preco" sortable header="Preço(R$)"></Column>
             <Column
               field="categoria"
               sortable
@@ -415,7 +417,7 @@ const CadastroProduto: React.FC = () => {
             options={produtosSugestao}
             onChange={(e) => setSugestao(e.value)}
             optionLabel="nome"
-            placeholder="Selecione a Categoria"
+            placeholder="Selecione o Produto"
             display="chip"
           />
         </div>
