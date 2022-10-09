@@ -14,36 +14,34 @@
 }
 .collection {
     margin: 0.5rem 0 1rem 0;
-    
-    border-radius: 2px;
     overflow: hidden;
     position: relative;
-    
 }
 
-
-.collection .collection-item:last-child {
+/* .collection .collection-item:last-child {
     border-bottom: none;
-}
+} */
 .collection a.collection-item {
     display: block;
     transition: .25s;
-    color: #26a69a;
 }
 .collection .collection-item {
     background-color: #f59e0b;
     line-height: 1.5rem;
     padding: 10px 20px;
     margin: 0;
-    border-bottom: 1px solid #e0e0e0;
     margin-top: 1rem;
-    font-size: 20px;
+    font-size: 15px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 700;
+    border: 1.5px solid black;
 }
 .collection-item {
-    color: white !important;
+    color: black !important;
 }
 
 .collection a.collection-item:not(.active):hover {
-    background-color: rgb(206, 204, 190);
-    color: white
+    background: rgb(255, 123, 0);
+    color: black;
 }

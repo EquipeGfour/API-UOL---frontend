@@ -1,6 +1,8 @@
 .botaoTamanho {
     padding: 15px 45px!important;
-    
+}
+.p-button.mt0{
+    margin-top: 0 !important;
 }
 .datatable-crud-demo .table-header {
     display: flex;
@@ -51,10 +53,54 @@ width: 95%;
 margin: 0 auto;
 margin-top: 3rem;
 }
+
 .formatarFont{
     font-family: Arial,sans-serif;
     margin-top: 1px;
 }
+
 li {
     list-style-type: none;
+}
+
+.p-toolbar.br0{
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+}
+
+.p-button:enabled:hover.bt-delete-hover{
+    background: #d42929 !important;
+}
+
+.p-button:enabled:hover.bt-dialog{
+    background: #efefef;
+    color: rgb(255, 123, 0);
+}
+
+.p-dialog.pb0-input-dialog-categoria .p-dialog-content{
+    padding-bottom: 0;
+}
+
+.field.mbt0 {
+    margin-bottom: 0rem;
+}
+
+.p-datatable.dt-select-field .p-datatable-tbody > tr.p-highlight{
+    color: black;
+    background: #efefef;
+}
+
+.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover{
+    border-color: black;
+}
+
+.p-multiselect.mult-chips-bgcolor-color.p-multiselect-chip .p-multiselect-token{
+    background: orange;
+    color: black;
+    font-weight: 700;
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight{
+    color: black;
+    background: #efefef;
 }
