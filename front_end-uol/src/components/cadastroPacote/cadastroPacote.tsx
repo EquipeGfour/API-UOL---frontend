@@ -103,7 +103,7 @@ export const CadastroPacote: React.FC = () => {
                     <form onSubmit={formik.handleSubmit} className="p-fluid containerPacote">
                         <div className="field ">
                             <span className="p-float-label">
-                                <InputText id="name" name="name" value={nomepacote} onChange={e => { setNomepacote(e.target.value) }} autoFocus className={classNames({ 'p-invalid': isFormFieldValid('name') })} />
+                                <InputText id="name" name="name" value={nomepacote} onChange={e => { setNomepacote(e.target.value) }}  className={classNames({ 'p-invalid': isFormFieldValid('name') })} />
                                 <label htmlFor="name" className={classNames({ 'p-error': isFormFieldValid('name') })}>Nome*</label>
                             </span>
                             {getFormErrorMessage('name')}
@@ -111,7 +111,7 @@ export const CadastroPacote: React.FC = () => {
 
                         <div className="field">
                             <span className="p-float-label">
-                                <InputText id="preco" name="preco" value={precopacote} onChange={e => { setPrecopacote(e.target.value) }} autoFocus className={classNames({ 'p-invalid': isFormFieldValid('preco') })} />
+                                <InputText id="preco" name="preco" value={precopacote} onChange={e => { setPrecopacote(e.target.value) }} className={classNames({ 'p-invalid': isFormFieldValid('preco') })} />
                                 <label htmlFor="preco" className={classNames({ 'p-error': isFormFieldValid('preco') })}>Preço*</label>
                             </span>
                             {getFormErrorMessage('preco')}
@@ -131,6 +131,7 @@ export const CadastroPacote: React.FC = () => {
                 <div className="picklist-demo pick1">
                     <div className="card">
                         <PickList 
+                        className='pacote-picklist source-items-selected-color'
                         source={source}
                         target={target} 
                         itemTemplate={itemTemplate} 
@@ -148,9 +149,11 @@ export const CadastroPacote: React.FC = () => {
             
 
         <div className='bottomPacote'>      
-            <Button type="submit" label="Cadastrar Pacote" onClick={(e)=>criaPacote()}  className="mt-2 bottomPacote1" />
+            <Button type="submit" label="Cadastrar Pacote" onClick={()=>criaPacote()} className="mt-2 bottomPacote1 actived-button-color" />
         </div>
 
+        <br />
+        <br />
         </>
     );
 
