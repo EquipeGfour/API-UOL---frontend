@@ -12,6 +12,7 @@ import { InputText } from "primereact/inputtext";
 import { MultiSelect } from "primereact/multiselect";
 import { Toast } from 'primereact/toast';
 import { Chips } from 'primereact/chips';
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 
 const CadastroProduto: React.FC = () => {
@@ -44,7 +45,7 @@ const CadastroProduto: React.FC = () => {
   const [sugestao, setSugestao] = useState<any[]>([]);
   const toast = useRef(null);
   const [multicategorias, setMulticategorias] = useState<any>([]);
- 
+  const navigate = useNavigate()
 
 
   /**
@@ -169,7 +170,9 @@ const CadastroProduto: React.FC = () => {
         </div>
     );
 }
-
+  const multiprod = () =>{
+    navigate('/cadastro-multiplo-produto')
+  }
   const openNew = () => {
     setProduct(emptyProduct);
     setSubmitted(false);
@@ -202,11 +205,18 @@ const CadastroProduto: React.FC = () => {
           onClick={open1New}
         />
         <Button
+          label="Multiplos Produtos"
+          icon="pi pi-plus"
+          className="p-button-success mr-1 botaoTamanho mt0"          
+          onClick={multiprod}
+        />
+        <Button
           label="Nova Categoria"
           icon="pi pi-plus"
           className="p-button-success mr-1 botaoTamanho mt0"
           onClick={openNew}
         />
+
         {/* <Button
           label="Delete"
           icon="pi pi-trash"

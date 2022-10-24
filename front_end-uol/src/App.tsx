@@ -14,6 +14,7 @@ import CadastroProduto from './components/cadastroProduto/cadastroProduto';
 import NavbarAdmin from './components/navbarAdmin/navbarAdmin';
 import HomeAdmin from './components/homeAdmin/homeAdmin'
 import {CadastroPacote} from './components/cadastroPacote/cadastroPacote'
+import CadastroMultiplo from './components/cadastroMultiploProduto/cadastroMultiplo'
 
 // function App() {
 type state = {
@@ -53,6 +54,7 @@ type state = {
               <Route path='cadastro-produto' element={<CadastroProduto/>}/>
               <Route path='/' element={<HomeAdmin/>}/>
               <Route path='cadastro-pacote' element ={<CadastroPacote/>}></Route>
+              <Route path='cadastro-multiplo-produto'element={<CadastroMultiplo/>}></Route>
             </Routes>
           </BrowserRouter>
         </CookiesProvider>
