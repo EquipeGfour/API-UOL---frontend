@@ -11,6 +11,7 @@ import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 import { MultiSelect } from "primereact/multiselect";
 import { Toast } from 'primereact/toast';
+import { Chips } from 'primereact/chips';
 
 
 const CadastroProduto: React.FC = () => {
@@ -42,6 +43,8 @@ const CadastroProduto: React.FC = () => {
   const [preco,setPreco] = useState('');
   const [sugestao, setSugestao] = useState<any[]>([]);
   const toast = useRef(null);
+  const [multicategorias, setMulticategorias] = useState<any>([]);
+ 
 
 
   /**
@@ -90,16 +93,16 @@ const CadastroProduto: React.FC = () => {
   /**
    * Axios Post
    */
-  const cadastrarCategoria = () => {
-    axios.post("http://localhost:8080/categoria/cadastrar", { nome: categoria }).then((res) => {
-      setCategoria('')
-      hideDialog()
-      toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Categoria Cadastrada', life: 3000 });
-      buscarCategoria()
-    }).catch((error) => {
-      console.error("Erro", error.response)
-    })
-  }
+  // const cadastrarCategoria = () => {
+  //   axios.post("http://localhost:8080/categoria/cadastrar", { nome: categoria }).then((res) => {
+  //     setCategoria('')
+  //     hideDialog()
+  //     toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Categoria Cadastrada', life: 3000 });
+  //     buscarCategoria()
+  //   }).catch((error) => {
+  //     console.error("Erro", error.response)
+  //   })
+  // }
 
   /**
    * Axios Post
@@ -156,6 +159,16 @@ const CadastroProduto: React.FC = () => {
       setPreco('');
     }
   }, [product1Dialog]);
+
+
+  const customChip = (item: any) => {
+    return (
+        <div>
+            <span>{item} - (active) </span>
+            <i className="pi pi-user-plus" style={{ fontSize: '14px' }}></i>
+        </div>
+    );
+}
 
   const openNew = () => {
     setProduct(emptyProduct);
@@ -272,7 +285,7 @@ const CadastroProduto: React.FC = () => {
       <Button
         label="Salvar"
         onClick={(e) => {
-          cadastrarCategoria()
+          // cadastrarCategoria()
         }}
         icon="pi pi-check"
         className="p-button-text botaoTamanho bt-dialog"
@@ -338,7 +351,7 @@ const CadastroProduto: React.FC = () => {
       <Dialog
         visible={productDialog}
         style={{ width: "750px" }}
-        header="Criar Categoria"
+        header="Criar Categorias"
         modal
         className="p-fluid pb0-input-dialog-categoria"
         footer={botoesCategoria}
@@ -346,17 +359,13 @@ const CadastroProduto: React.FC = () => {
       >
         {product.image && <img src={`images/product/${product.image}`} />}
         <div className="field mbt0">
-          <label htmlFor="name">Categoria</label>
-          <InputText
-            id="name"
-            value={categoria}
-            onChange={(e) => setCategoria(e.target.value)}
-            required
-            className={classNames({ "p-invalid": submitted && !product.name })}
-          />
+          <label htmlFor="name">Categorias</label>
+          <Chips
+          className="chipCategoria"
+          value={multicategorias}  max={5} onChange={(e) => setMulticategorias(e.value)} />
           {submitted && !product.name && (
             <small className="p-error">Preencha o Campo.</small>
-          )}
+          )} 
         </div>
       </Dialog>
 

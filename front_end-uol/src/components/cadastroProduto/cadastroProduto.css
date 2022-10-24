@@ -104,3 +104,11 @@ li {
     color: black;
     background: #efefef;
 }
+
+.p-chips .p-chips-multiple-container .p-chips-token {
+    padding: 0.375rem 0.75rem;
+    margin-right: 0.5rem;
+    background: orange;
+    color: black;
+    border-radius: 6px;
+}
