@@ -1,0 +1,94 @@
+.Centralizador{
+    display: flex;
+    justify-content: space-between;
+    background-color:#ECECEC;
+    margin: 0 auto;
+    margin-top: 4%;
+    width: 80%;
+    border-radius: 10px;
+    padding: 0rem 2rem ;
+    flex-wrap: wrap;
+}
+.Multiplo{
+    margin: 20px;
+    width: 50%;
+}
+.Separador{
+    margin: 20px;
+    
+}
+
+.p-multiselect.p-multiselect-chip .p-multiselect-token{
+    padding: 0.375rem 0.75rem;
+    margin-right: 0.5rem;
+    background: orange;
+    color: black;
+    border-radius: 6px;
+}
+
+.p-multiselect:not(.p-disabled):hover {
+    border-color: #5b5b5b;
+}
+.p-inputtext:enabled:hover {
+    border-color: #5b5b5b;
+}
+.Centralizador2{
+    background-color:#ECECEC;
+    margin: 0 auto;
+    margin-top: 5%;
+    width: 80%;
+    border-radius: 10px;
+    padding: 0rem 2rem ;
+    
+}
+.CentralizarTexto{
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 35px;
+    background-color:#D9D9D9;
+    width:98%;
+    border-radius: 10px;
+    padding:0.7rem;
+}
+.espaco{
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+.Centralizador-Filho{
+    display: flex;
+    justify-content: start;
+}
+
+.grid{
+    margin-left:0
+}
+
+.FormatoDescricao{
+    padding: 0px;
+    height: 5px;
+}
+
+
+.descricao{
+    height: 47px ; 
+    width: 223.63px ;
+}
+
+.formatoInput.formatoInput{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.tamanhoBotaoCriar.p-button{
+    height: 47px;
+    margin-top: 1.3rem !important;
+    padding: 0rem 1rem !important;
+    width: 10%;
+    
+}
+.QuantidadeProdutos{
+    padding: 0rem 0.2rem !important;
+}
