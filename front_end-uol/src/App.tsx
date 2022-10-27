@@ -15,6 +15,7 @@ import NavbarAdmin from './components/navbarAdmin/navbarAdmin';
 import HomeAdmin from './components/homeAdmin/homeAdmin'
 import {CadastroPacote} from './components/cadastroPacote/cadastroPacote'
 import CadastroMultiplo from './components/cadastroMultiploProduto/cadastroMultiplo'
+import CadastroOfertas from './components/cadastroOfertas/ofertas';
 
 // function App() {
 type state = {
@@ -54,6 +55,7 @@ type state = {
               <Route path='cadastro-produto' element={<CadastroProduto/>}/>
               <Route path='/' element={<HomeAdmin/>}/>
               <Route path='cadastro-pacote' element ={<CadastroPacote/>}></Route>
+              <Route path='cadastro-ofertas' element={<CadastroOfertas/>}></Route>
               <Route path='cadastro-multiplo-produto'element={<CadastroMultiplo/>}></Route>
             </Routes>
           </BrowserRouter>
