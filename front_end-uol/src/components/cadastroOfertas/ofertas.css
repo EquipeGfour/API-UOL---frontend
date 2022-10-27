@@ -1,15 +1,17 @@
 .borda-inicial{
-
-width: 80%;
-background-color: #ECECEC;
-height: 450px;
-margin: 0 auto;
+    border-radius: 10px;
+    width: 80%;
+    background-color: #ECECEC;
+    margin: 0 auto;
+    padding: 2rem 0rem ;
 }
 .espaçamento{
-    margin-top: 5%;
+    margin-top: 4%;
 }
 .centralizar{
     text-align: center;
+    margin-bottom: 10px;
+    margin-top: 10px !important;
 }
 .flexibilizar{
 margin-top: 1%;
@@ -42,6 +44,7 @@ input.p-inputtext.p-component.tamanho-input{
 display: flex;
 flex-direction: row;
 justify-content: center;
+margin-top: 2%;
 }
 
 .valor{
@@ -69,8 +72,23 @@ justify-content: center;
     width: 10%;
 }
 
+.tamanho-input-categoria{
+    margin: 0 auto;
+    width: 60%;
+}
 
-/* input#percent {
-    width:1 %;
-    padding: 10px -2px;
-} */
+.tamanho-input-pacote{
+    margin: 0 auto;
+    width: 60%;
+}
+
+.tamanho-input-produto{
+    margin: 0 auto;
+    width: 60%;
+}
+
+.bottomOferta{
+    margin: 0 auto !important;
+    display:flex;
+    justify-content: center !important;
+}
