@@ -1,0 +1,76 @@
+.borda-inicial{
+
+width: 80%;
+background-color: #ECECEC;
+height: 450px;
+margin: 0 auto;
+}
+.espaçamento{
+    margin-top: 5%;
+}
+.centralizar{
+    text-align: center;
+}
+.flexibilizar{
+margin-top: 1%;
+}
+
+.input-Calendario input.p-inputtext.p-component{
+    padding: 12px 44px;
+    width: 100% !important;
+}
+
+.flexibilizar{
+display: flex;
+flex-direction: column ;
+}
+
+
+input.p-inputtext.p-component.tamanho-input{
+    margin: 0 auto;
+    width: 60%;
+}
+.ajuste-label{
+    margin-left: 20%;
+    
+}
+.inputs {
+    margin: 0 auto;
+    margin-right: 47.4%;
+}
+.coluna-valor{
+display: flex;
+flex-direction: row;
+justify-content: center;
+}
+
+.valor{
+    width: 20%;
+}
+.desconto{
+    width: 20%;
+}
+.valorFinal{
+    width: 20%;
+    padding: 0px 0px;
+}
+
+
+.valor input.p-inputtext.p-component{
+    margin: 0 auto;
+    width: 10%;
+}
+.desconto input.p-inputtext.p-component{
+    margin: 0 auto;
+    width: 10%;
+}
+.valorFinal input.p-inputtext.p-component{
+    margin: 0 auto;
+    width: 10%;
+}
+
+
+/* input#percent {
+    width:1 %;
+    padding: 10px -2px;
+} */
