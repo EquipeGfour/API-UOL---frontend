@@ -1,0 +1,57 @@
+.borda-inicial-1{
+    background-color: #ECECEC;
+    margin: 0 auto;
+    margin-top: 4%;
+    width: 80%;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    display: flex;
+}
+
+.borda{
+    border-radius: 5px;
+    margin-left: 2%;
+    width: 100%;
+}
+.formato-label{
+    margin-left: 2%;
+}
+.formato-label-pacotes{
+    margin-left: 1%;
+
+}
+.espaçamento{
+    margin:10px 15px;
+}
+.chip-Pacotes{
+    margin-left: 1%;
+    border-radius: 5px;
+    padding: 0;
+}
+.seletores{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.seletores > div {
+    flex:1;
+}
+.linha-chip, .linha-chip .espaçamento , .linha-chip .espaçamento .p-chips, .linha-chip .espaçamento .p-chips ul{
+    width: 100%;
+}
+.linha-chip, .linha-chip .p-chips{
+padding-right: 2rem;
+}
+
+.botao-criar-promocao{
+margin: 1rem 1.8rem;
+}
+
+.borda-promocoes{
+    background-color: #ECECEC;
+    margin: 0 auto;
+    margin-top: 4%;
+    width: 80%;
+    border-radius: 10px;
+    text-align: center;
+}
