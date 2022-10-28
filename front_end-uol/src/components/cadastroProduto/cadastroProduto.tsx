@@ -216,12 +216,6 @@ const CadastroProduto: React.FC = () => {
           className="p-button-success mr-1 botaoTamanho mt0"
           onClick={openNew}
         />
-
-        {/* <Button
-          label="Delete"
-          icon="pi pi-trash"
-          className="p-button-danger botaoTamanho"
-        /> */}
       </React.Fragment>
     );
   };
@@ -229,11 +223,7 @@ const CadastroProduto: React.FC = () => {
   const actionBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        {/* <Button
-          icon="pi pi-pencil"
-          className="p-button-rounded p-button-success mr-2 botaoTamanho"
-          onClick={() => editProduct1(rowData)}
-        /> */}
+        
         <Button
           icon="pi pi-trash "
           className="p-button-rounded p-button-warning botaoTamanho excluir mt0 bt-delete-hover"
@@ -341,7 +331,6 @@ const CadastroProduto: React.FC = () => {
             ></Column>
             <Column field="nome" sortable header="Nome"></Column>
             <Column field="descricao" sortable header="Descrição"></Column>
-            {/* <Column field="image" header="Imagem" body={viewimage}></Column> */}
             <Column field="preco" sortable header="Preço(R$)"></Column>
             <Column
               field="categoria"
