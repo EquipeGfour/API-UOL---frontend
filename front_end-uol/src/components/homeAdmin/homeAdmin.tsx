@@ -11,7 +11,7 @@ const HomeAdmin: React.FC = (props) => {
                 <Link to={'/cadastro-produto-final'} className="collection-item pointer">Produtos e Categorias</Link>
                 <Link to={'/cadastro-pacote'} className="collection-item pointer">Criação e Gerenciamento de Pacotes</Link>
                 <Link to={'/cadastro-ofertas'} className="collection-item pointer">Criação e Gerenciamento de Ofertas</Link>
-
+                <Link to={'/cadastro-Promocao'} className="collection-item pointer">Criação e Gerenciamento de Promoção</Link>
             </div>
         </div>
         </div>

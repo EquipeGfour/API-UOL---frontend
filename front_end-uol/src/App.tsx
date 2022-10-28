@@ -17,6 +17,7 @@ import HomeAdmin from './components/homeAdmin/homeAdmin'
 import {CadastroPacote} from './components/cadastroPacote/cadastroPacote'
 import CadastroMultiplo from './components/cadastroMultiploProduto/cadastroMultiplo'
 import CadastroOfertas from './components/cadastroOfertas/ofertas';
+import CadastroPromocaoFinal from './components/cadastroPromocao/cadastroPromocao';
 
 // function App() {
 type state = {
@@ -55,6 +56,7 @@ type state = {
               <Route path='venda-usuario' element={<VendaUsuario/>}/>
               <Route path='cadastro-produto' element={<CadastroProduto/>}/>
               <Route path='cadastro-produto-final' element={<CadastroProdutoFinal/>}/>
+              <Route path='cadastro-promocao-final' element={<CadastroPromocaoFinal/>}/>
               <Route path='/' element={<HomeAdmin/>}/>
               <Route path='cadastro-pacote' element ={<CadastroPacote/>}></Route>
               <Route path='cadastro-ofertas' element={<CadastroOfertas/>}></Route>
