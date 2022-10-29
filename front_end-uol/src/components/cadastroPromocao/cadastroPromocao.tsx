@@ -43,7 +43,15 @@ const CadastroPromocaoFinal: React.FC = (props) => {
                 </div>
                 <Button  label="Criar" className="p-button-success botao-criar-promocao" />
             </div>
-            
+            <div className='bordado'>
+                <div className='Filho-Bordado'>
+                    <h2>Criador De Sites</h2>
+                </div>
+                
+            </div>
+            <div className='botao-Promocao-Final'>
+                <Button  label="Cadastrar Promoções" className="p-button-success botao-Cadastrar-Promoções" />
+            </div>
         </>
 
     )
