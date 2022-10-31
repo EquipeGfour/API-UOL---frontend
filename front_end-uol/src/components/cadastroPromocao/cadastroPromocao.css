@@ -32,6 +32,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
+    flex-wrap: wrap;
 }
 .seletores > div {
     flex:1;
@@ -59,7 +60,6 @@ margin: 1rem 1.8rem;
 .bordado{
     width: 80%;
     margin: 0 auto;
-    height: 540px;
     background: #ECECEC;
     margin-top: 2%;
     border-radius: 10px;
@@ -78,4 +78,11 @@ margin: 1rem 1.8rem;
 .botao-Promocao-Final{
     margin-left: 36%;
     margin-bottom: 2%;
+}
+.BordaPacotesOfertado{
+    background: #d4d4d4;
+    border-radius: 10px;
+}
+.BordaPacotesOfertado{
+margin-top: 3%;
 }
