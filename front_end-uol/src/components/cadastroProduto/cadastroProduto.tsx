@@ -30,12 +30,12 @@ const CadastroProduto: React.FC = () => {
   const [produtosSelecionados, setProdutosSelecionados] = useState([]);
   const [productDialog, setProductDialog] = useState(false);
   const [product1Dialog, setProduct1Dialog] = useState(false);
+  const [validCateg,setValidCateg] = useState(true)
   const [product, setProduct] = useState(emptyProduct);
   const [product1, setProduct1] = useState(emptyProduct);
   const [submitted, setSubmitted] = useState(false);
   const [sub1mitted, setSub1mitted] = useState(false);
-  const [globalFilter, setGlobalFilter] = useState(null);
-  const [categoria, setCategoria] = useState(null);
+  const [globalFilter, setGlobalFilter] = useState(null); 
   const [categorias, setCategorias] = useState([]);
   const [categoriaSelecionada, setCategoriaSelecionada] = useState<any[]>([])
   const [produtosSugestao, setProdutosSugestao] = useState(null);
@@ -94,16 +94,29 @@ const CadastroProduto: React.FC = () => {
   /**
    * Axios Post
    */
-  // const cadastrarCategoria = () => {
-  //   axios.post("http://localhost:8080/categoria/cadastrar", { nome: categoria }).then((res) => {
-  //     setCategoria('')
-  //     hideDialog()
-  //     toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Categoria Cadastrada', life: 3000 });
-  //     buscarCategoria()
-  //   }).catch((error) => {
-  //     console.error("Erro", error.response)
-  //   })
-  // }
+  const cadastrarCategoria = () => {
+    let multicateg = []
+    console.log(multicategorias);
+    
+    multicateg.push(...multicategorias.map(categoria=>({nome:categoria})))
+    console.log(multicategorias);
+    if(multicateg.length){
+      axios.post("http://localhost:8080/categoria/cadastrar-multiplas", multicateg).then((res) => {
+      setMulticategorias([])
+      console.log(multicategorias);
+      hideDialog()
+      toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Categoria Cadastrada', life: 3000 });
+      buscarCategoria()
+    }).catch((error) => {
+      console.error("Erro", error.response)
+      
+    })
+    }else{
+      setValidCateg(false)
+      toast.current.show({ severity: 'error', summary: 'Erro', detail: 'Prencha o campo !', life: 3000 });
+    }
+    
+  }
 
 
   /**
@@ -182,6 +195,10 @@ const CadastroProduto: React.FC = () => {
     setProduct(emptyProduct);
     setSubmitted(false);
     setProductDialog(true);
+  };  
+  const hideDialog = () => {
+    setSubmitted(false);
+    setProductDialog(false);
   };
 
   const open1New = () => {
@@ -189,12 +206,6 @@ const CadastroProduto: React.FC = () => {
     setSub1mitted(false);
     setProduct1Dialog(true);
   };
-
-  const hideDialog = () => {
-    setSubmitted(false);
-    setProductDialog(false);
-  };
-
   const hide1Dialog = () => {
     setSub1mitted(false);
     setProduct1Dialog(false);
@@ -290,7 +301,7 @@ const CadastroProduto: React.FC = () => {
       <Button
         label="Salvar"
         onClick={(e) => {
-          // cadastrarCategoria()
+          cadastrarCategoria()
         }}
         icon="pi pi-check"
         className="p-button-text botaoTamanho bt-dialog"
@@ -361,13 +372,13 @@ const CadastroProduto: React.FC = () => {
         footer={botoesCategoria}
         onHide={hideDialog}
       >
-        {product.image && <img src={`images/product/${product.image}`} />}
+        
         <div className="field mbt0">
           <label htmlFor="name">Categorias</label>
           <Chips
-          className="chipCategoria"
-          value={multicategorias}  max={5} onChange={(e) => setMulticategorias(e.value)} />
-          {submitted && !product.name && (
+          className={`chipCategoria ${!validCateg?'p-invalid':''}`}
+          value={multicategorias}  max={100} onChange={(e) => setMulticategorias(e.value)} />
+          {!validCateg &&(
             <small className="p-error">Preencha o Campo.</small>
           )} 
         </div>
