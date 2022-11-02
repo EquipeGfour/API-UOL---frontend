@@ -12,12 +12,12 @@ import LoginUsuario from './components/loginUsuario/loginUsuario'
 import { CookiesProvider } from "react-cookie"
 import CadastroProduto from './components/cadastroProduto/cadastroProduto';
 import CadastroProdutoFinal from './components/cadastroProdutoFinal/cadastroProdutoFinal';
-import NavbarAdmin from './components/navbarAdmin/navbarAdmin';
 import HomeAdmin from './components/homeAdmin/homeAdmin'
 import {CadastroPacote} from './components/cadastroPacote/cadastroPacote'
 import CadastroMultiplo from './components/cadastroMultiploProduto/cadastroMultiplo'
 import CadastroOfertas from './components/cadastroOfertas/ofertas';
 import CadastroPromocaoFinal from './components/cadastroPromocao/cadastroPromocao';
+import VisualizacaoPacoteAdmin from './components/VisualizacaoPacoteAdmin/VisualizacaoPacoteAdmin';
 
 // function App() {
 type state = {
@@ -58,6 +58,7 @@ type state = {
               <Route path='cadastro-produto-final' element={<CadastroProdutoFinal/>}/>
               <Route path='cadastro-promocao-final' element={<CadastroPromocaoFinal/>}/>
               <Route path='/' element={<HomeAdmin/>}/>
+              <Route path='Visualizacao-Pacote-Admin' element={<VisualizacaoPacoteAdmin/>}/>
               <Route path='cadastro-pacote' element ={<CadastroPacote/>}></Route>
               <Route path='cadastro-ofertas' element={<CadastroOfertas/>}></Route>
               <Route path='cadastro-multiplo-produto'element={<CadastroMultiplo/>}></Route>
