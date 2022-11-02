@@ -13,6 +13,7 @@ const CadastroOfertas: React.FC = () =>{
     const [dates2, setDates2] = useState<Date | Date[] | undefined>(undefined);
     const [promocao, setPromocao] = useState('');
     const [descricao,setDescricao] = useState('');
+    const [preco,setPreco] = useState(null);
     const [valor,setValor] = useState(null);
     const [desconto,setDesconto] = useState(null);
     const [valorFinal,setValorFinal] = useState(null);
@@ -59,19 +60,19 @@ const CadastroOfertas: React.FC = () =>{
 
     const buscarCategoriaId = (e) =>{
         if(e.value.length){
-          let ids = e.value.map((arrayItem)=>arrayItem.id).join(',')
-          setCategoriaSelecionada(e.value)
-          axios.get(`http://localhost:8081/compra/selecionar-sugestoes/${ids}`).then((res) => {
+        let ids = e.value.map((arrayItem)=>arrayItem.id).join(',')
+        setCategoriaSelecionada(e.value)
+        axios.get(`http://localhost:8081/compra/selecionar-sugestoes/${ids}`).then((res) => {
             console.log(res.data)
             setListaProdutos(res.data)
-          }).catch((erro) => {
+        }).catch((erro) => {
             console.error("Erro", erro.response);
-          })
+        })
         }else{
-          setCategoriaSelecionada([])
-          setListaProdutos([])
+        setCategoriaSelecionada([])
+        setListaProdutos([])
         }
-      }
+    }
 
     const buscarPacotes = () => {
         axios.get(`http://localhost:8080/pacote/buscar`).then((res)=>{
@@ -81,6 +82,8 @@ const CadastroOfertas: React.FC = () =>{
             console.error("Erro", erro.response);
         })
     }
+
+    
 
     useEffect(() => {    
         buscarCategoria();
@@ -93,12 +96,12 @@ const CadastroOfertas: React.FC = () =>{
                 
             </div>
             <div className="borda-inicial">                    
-                    <h5 className="centralizar">Dados da Promoção</h5>                    
+                    <h5 className="centralizar">Criação de Ofertas</h5>                    
                     <div className="flexibilizar">
-                        <label className="ajuste-label" htmlFor="percent">Nome da Promoção:</label>
+                        <label className="ajuste-label" htmlFor="percent">Nome da Oferta</label>
                         <InputText 
                         className="tamanho-input"  
-                        placeholder="Nome Promoção" 
+                        placeholder="Nome Oferta" 
                         value={promocao} 
                         onChange={(e) => setPromocao(e.target.value)} />
                     </div>
@@ -114,7 +117,7 @@ const CadastroOfertas: React.FC = () =>{
 
                     <div className="ajustar-blocos">
                         <div className="field col-12 md:col-4 inputs">
-                            <label htmlFor="range">Periodo da Promoção:</label>
+                            <label htmlFor="range">Periodo da Oferta:</label>
                             <br />
                             <Calendar 
                             className="input-Calendario" 
@@ -137,19 +140,19 @@ const CadastroOfertas: React.FC = () =>{
                             display="chip" />
                         </div>
                         <div className="flexibilizar">
-                            <label className="ajuste-label">Selecione os Produtos: </label>
+                            <label className="ajuste-label">Selecione os Pacotes: </label>
                             <MultiSelect
                             className=' multiselect-custom tamanho-input-produto' 
-                            options={listaProdutos} 
-                            value={produtos}
-                            onChange={(e) => setProdutos(e.value)} 
+                            options={pacotes} 
+                            value={pacoteSelecionado}
+                            onChange={(e) => setPacoteSelecionado(e.value)} 
                             optionLabel="nome" 
-                            placeholder="Selecione os Produtos" 
+                            placeholder="Selecione os Pacotes" 
                             filter
-                            disabled={!categoriaSelecionada.length}
+                            
                             />
                         </div>
-                        <div className="flexibilizar">
+                        {/* <div className="flexibilizar">
                             <label className="ajuste-label">Selecione os Pacotes: </label>
                             <MultiSelect                             
                             className="tamanho-input-pacote"
@@ -159,17 +162,17 @@ const CadastroOfertas: React.FC = () =>{
                             optionLabel="nome" 
                             placeholder="Selecione os Pacotes" 
                             display="chip" />
-                        </div>
+                        </div> */}
                         <div className="coluna-valor">
                             <div className="valor">
-                                <label >Valor Base:</label>
-                                <InputNumber
-                                value={valor} 
+                                <label>Valor Base:</label>
+                                <InputNumber                              
+                                value={pacoteSelecionado} 
                                 onValueChange={(e) => setValor(e.value)} 
                                 disabled
                                 prefix="R$ " />
                             </div>
-                            <div className="desconto">
+                            {/* <div className="desconto">
                                 <label  htmlFor="percent">Desconto(%): </label>
                                 <InputNumber 
                                 inputId="percent" 
@@ -177,13 +180,13 @@ const CadastroOfertas: React.FC = () =>{
                                 placeholder='Insira o valor' 
                                 onValueChange={(e) => setDesconto(e.value)} 
                                 suffix="%" />
-                            </div>
+                            </div> */}
                             <div className="valorFinal">
-                                <label>Valor com Desconto:</label>
+                                <label>Valor da Oferta:</label>
                                 <InputNumber
                                 value={valorFinal} 
                                 onValueChange={(e) => setValorFinal(e.value)} 
-                                disabled
+
                                 prefix="R$ "  />
                             </div>                          
                         </div>
