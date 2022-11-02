@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 
-
 import CadastroUsuario from './components/cadastroUsuario/cadastroUsuario';
 import VendaUsuario from './components/vendaUsuario/vendaUsuario';
 import HomeUsuario from './components/homeUsuario/homeUsuario';
@@ -11,7 +10,7 @@ import Navbar from './components/navbar/navbar';
 import LoginUsuario from './components/loginUsuario/loginUsuario'
 import { CookiesProvider } from "react-cookie"
 import CadastroProduto from './components/cadastroProduto/cadastroProduto';
-import CadastroProdutoFinal from './components/cadastroProdutoFinal/cadastroProdutoFinal';
+
 import HomeAdmin from './components/homeAdmin/homeAdmin'
 import {CadastroPacote} from './components/cadastroPacote/cadastroPacote'
 import CadastroMultiplo from './components/cadastroMultiploProduto/cadastroMultiplo'
@@ -55,7 +54,6 @@ type state = {
               <Route path='venda-usuario/categoria/:idCategoria/produto/:idProduto' element={<VendaUsuario/>}/>
               <Route path='venda-usuario' element={<VendaUsuario/>}/>
               <Route path='cadastro-produto' element={<CadastroProduto/>}/>
-              <Route path='cadastro-produto-final' element={<CadastroProdutoFinal/>}/>
               <Route path='cadastro-promocao-final' element={<CadastroPromocaoFinal/>}/>
               <Route path='/' element={<HomeAdmin/>}/>
               <Route path='Visualizacao-Pacote' element={<VisualizacaoPacoteAdmin/>}/>
