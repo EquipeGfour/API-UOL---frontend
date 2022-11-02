@@ -25,6 +25,15 @@ const VisualizacaoPacoteAdmin:React.FC = (props) => {
 
         setProducts2(_products2);
     }
+    const nomePlano = (options) => {
+        console.log(options)
+        return(
+            <div className="subtitulo-colapse-2">
+                <label  className="" htmlFor="inputtext">Criador De Site</label>
+                <label  className="" htmlFor="inputtext">Preço: R$200.00</label>
+            </div>
+        )
+    }
     
     const priceBodyTemplate = (rowData) => {
         return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(rowData.price);
@@ -53,15 +62,14 @@ const VisualizacaoPacoteAdmin:React.FC = (props) => {
     }
     return (
         <div >
-                <Accordion className="tamanho-colapse" activeIndex={2}>
+                <Accordion className="tamanho-colapse" activeIndex={0}>
                     <AccordionTab header="Criador De Site">
                         <div className="borda-colapse">
                             <Accordion className="tamanho-colapse-dentro" activeIndex={2}>
                                 
-                                <AccordionTab header="Plano Basico">
+                                <AccordionTab headerTemplate={nomePlano}>
                                     <div className="subtitulo-colapse">
                                         <label  className="" htmlFor="inputtext">Produtos</label>
-                                        <label  className="" htmlFor="inputtext">Preço: R$250.00</label>
                                     </div>
                                     <DataTable value={products2} editMode="row" dataKey="id" onRowEditComplete={onRowEditComplete1} responsiveLayout="scroll">
                                         <Column field="Nome" header="Nome" editor={(options) => textEditor(options)} style={{ width: '20%' }}></Column>

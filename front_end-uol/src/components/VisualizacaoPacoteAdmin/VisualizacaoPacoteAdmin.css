@@ -19,10 +19,22 @@
 .p-accordion .p-accordion-content {
 background:#ECECEC;
 }
+.tamanho-colapse-dentro .p-accordion-content {
+    background:#ffffff;
+}
+
+
 .tamanho-colapse-dentro{
     width: 100%;
 }
 .subtitulo-colapse{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    font-size: 1.5rem;
+}
+.subtitulo-colapse-2{
+    width: 100%;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
