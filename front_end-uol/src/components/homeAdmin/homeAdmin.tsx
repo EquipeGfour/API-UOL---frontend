@@ -12,7 +12,7 @@ const HomeAdmin: React.FC = (props) => {
                 <Link to={'/cadastro-pacote'} className="collection-item pointer">Criação e Gerenciamento de Pacotes</Link>
                 <Link to={'/cadastro-ofertas'} className="collection-item pointer">Criação e Gerenciamento de Ofertas</Link>
                 <Link to={'/cadastro-promocao-final'} className="collection-item pointer">Criação e Gerenciamento de Promoção</Link>
-                <Link to={'/Visualizacao-Pacote-Admin'} className="collection-item pointer">VisualizacaoPacoteAdmin</Link>
+                <Link to={'/Visualizacao-Pacote'} className="collection-item pointer">Visualizacao Pacote Admin</Link>
             </div>
         </div>
         </div>

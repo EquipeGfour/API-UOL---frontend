@@ -1,0 +1,21 @@
+.tamanho-colapse{
+    width: 70%;
+    padding-top: 2%;
+    margin: 0 auto;
+}
+.titulo-colapse{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.borda-colapse{
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    padding: 2rem 2rem;
+    
+}
+    
+.p-accordion .p-accordion-content {
+background:#ECECEC;
+}
