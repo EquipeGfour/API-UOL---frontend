@@ -105,17 +105,22 @@ const CadastroProduto: React.FC = () => {
   //   })
   // }
 
+
   /**
    * Axios Post
    */
   const cadastrarProduto = () => {
+
     let dados = {
-      nome:nome,
-      descricao:descricao,
-      preco:preco,
-      categorias: categoriaSelecionada,
-      sugestao: sugestao
+      produto:{
+        nome:nome,
+        descricao:descricao,
+        preco:preco,
+        
+      },
+      categorias: categoriaSelecionada.map(categoria => ({id:categoria.id}))
     }
+
     axios.post("http://localhost:8080/produto/cadastrar",dados).then((res)=>{
       setNome('');
       setDescricao('');
@@ -126,7 +131,7 @@ const CadastroProduto: React.FC = () => {
       toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Produto Cadastrado', life: 3000 });
       buscarProdutos();
     }).catch((error) => {
-      console.error("Erro", error.response)
+      console.error("Erro", error)
     })
   }
 
