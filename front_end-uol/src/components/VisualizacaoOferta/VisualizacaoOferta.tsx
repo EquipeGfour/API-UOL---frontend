@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import  './VisualizacaoPacoteAdmin.css'
+import React, { useState , useEffect } from "react";
+import  './VisualizacaoOferta.css'
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Button } from 'primereact/button';
 import { DataTable } from 'primereact/datatable';
@@ -8,9 +8,23 @@ import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import { Dropdown } from 'primereact/dropdown';
 import { Toast } from 'primereact/toast';
+import axios from "axios";
+import { isElementAccessExpression } from "typescript";
 
-const VisualizacaoPacoteAdmin:React.FC = (props) => {
+
+const VisualizacaoOferta:React.FC = (props) => {
     const [products2, setProducts2] = useState(null);
+    const [ofertas, setOfertas] = useState([])
+
+    const buscar = () => {
+        axios.get("http://localhost:8080/oferta/buscar").then((res) => {
+            setOfertas(res.data)
+            
+        }).catch((erro) => { 
+            console.error ('Erro na função get axios' , erro.respose)
+            
+        })
+    }
 
     const statuses = [
         { label: 'In Stock', value: 'INSTOCK' },
@@ -25,12 +39,11 @@ const VisualizacaoPacoteAdmin:React.FC = (props) => {
 
         setProducts2(_products2);
     }
-    const nomePlano = (options) => {
-        console.log(options)
+    const nomePlano = (p) => {
         return(
             <div className="subtitulo-colapse-2">
-                <label  className="" htmlFor="inputtext">Criador De Site</label>
-                <label  className="" htmlFor="inputtext">Preço: R$200.00</label>
+                <label  className="" htmlFor="inputtext">{p.nome}</label>
+                <label  className="" htmlFor="inputtext">Preço: {parseFloat (p.preco).toFixed(2)} R$ </label>
             </div>
         )
     }
@@ -60,29 +73,34 @@ const VisualizacaoPacoteAdmin:React.FC = (props) => {
                 }} />
         );
     }
+
+    useEffect(() =>{
+        buscar()
+    },[]);
+
     return (
         <div >
+            {ofertas.map((o)=> (
                 <Accordion className="tamanho-colapse" activeIndex={0}>
-                    <AccordionTab header="Criador De Site">
-                        <div className="borda-colapse">
-                            <Accordion className="tamanho-colapse-dentro" activeIndex={2}>
-                                
-                                <AccordionTab headerTemplate={nomePlano}>
+                    <AccordionTab header= {o.nome}>    
+                        {o.pacotes.map((p) => (
+                            <Accordion className="tamanho-colapse-dentro" activeIndex={2}>                                       
+                                <AccordionTab headerTemplate={nomePlano(p)}>
                                     <div className="subtitulo-colapse">
-                                        <label  className="" htmlFor="inputtext">Produtos</label>
+                                        <label  className="" htmlFor="inputtext">  <h2>Produtos</h2> </label>
                                     </div>
-                                    <DataTable value={products2} editMode="row" dataKey="id" onRowEditComplete={onRowEditComplete1} responsiveLayout="scroll">
-                                        <Column field="Nome" header="Nome" editor={(options) => textEditor(options)} style={{ width: '20%' }}></Column>
-                                        <Column field="Descricao" header="Descricao" editor={(options) => textEditor(options)} style={{ width: '20%' }}></Column>
+                                    <DataTable value={p.produtos} editMode="row" dataKey="id" onRowEditComplete={onRowEditComplete1} responsiveLayout="scroll">
+                                        <Column field="nome" header="Nome" editor={(options) => textEditor(options)} style={{ width: '20%' }}></Column>
+                                        <Column field="descricao" header="Descricao" editor={(options) => textEditor(options)} style={{ width: '20%' }}></Column>
                                     </DataTable>
                                 </AccordionTab>
-                                
                             </Accordion>
-                        </div>    
+                        ))}                     
                     </AccordionTab>
                 </Accordion>
+            ))}
         </div>
     )
 }
 
-export default VisualizacaoPacoteAdmin;
+export default VisualizacaoOferta;
