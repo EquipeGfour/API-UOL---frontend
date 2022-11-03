@@ -57,7 +57,7 @@ type state = {
               <Route path='cadastro-produto' element={<CadastroProduto/>}/>
               <Route path='cadastro-promocao-final' element={<CadastroPromocaoFinal/>}/>
               <Route path='/' element={<HomeAdmin/>}/>
-              <Route path='Visualizacao-Pacote' element={<VisualizacaoOferta/>}/>
+              <Route path='Visualizacao-Oferta' element={<VisualizacaoOferta/>}/>
               <Route path='cadastro-pacote' element ={<CadastroPacote/>}></Route>
               <Route path='cadastro-ofertas' element={<CadastroOfertas/>}></Route>
               <Route path='visualizacao-pacotes' element={<VilPacote/>}></Route>

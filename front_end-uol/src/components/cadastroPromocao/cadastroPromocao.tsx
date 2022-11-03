@@ -107,7 +107,7 @@ setCategoriaSelecionada([])
                         <span>
                             <label htmlFor="inputtext">Selecionar Categoria</label>
                             <br />
-                            <MultiSelect className='chipTamanhoFormatado' maxSelectedLabels={5} value={categoriaSelecionada} options={categoria}  onChange={(e) => setCategoriaSelecionada(e.value)} optionLabel="nome" placeholder="Selecionar Categoria" display="chip" />
+                            <MultiSelect className='chipTamanhoFormatado'  maxSelectedLabels={5} value={categoriaSelecionada} options={categoria}  onChange={(e) => setCategoriaSelecionada(e.value)} optionLabel="nome" placeholder="Selecionar Categoria" display="chip" />
                         </span>
                         
                     </div>
