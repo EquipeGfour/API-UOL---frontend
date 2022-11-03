@@ -10,9 +10,10 @@
 
 .borda{
     border-radius: 5px;
-    margin-left: 2%;
+    margin-left: 0%;
     width: 100%;
 }
+
 .formato-label{
     margin-left: 2%;
 }
@@ -45,7 +46,9 @@ padding-right: 2rem;
 }
 
 .botao-criar-promocao{
-margin: 1rem 1.8rem;
+margin-bottom: 1% !important;
+margin: 0 auto;
+
 }
 
 .borda-promocoes{

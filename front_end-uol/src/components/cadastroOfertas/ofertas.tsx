@@ -24,6 +24,8 @@ const CadastroOfertas: React.FC = () =>{
     const [listaProdutos, setListaProdutos] = useState([])
     const [produtos, setProdutos] = useState([])
 
+    
+
     addLocale('pt-br', {
         firstDayOfWeek: 1,
         dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 
