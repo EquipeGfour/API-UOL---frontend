@@ -17,6 +17,7 @@ import CadastroMultiplo from './components/cadastroMultiploProduto/cadastroMulti
 import CadastroOfertas from './components/cadastroOfertas/ofertas';
 import CadastroPromocaoFinal from './components/cadastroPromocao/cadastroPromocao';
 import VisualizacaoOferta from './components/VisualizacaoOferta/VisualizacaoOferta';
+import VilPacote from './components/visualizacaoPacote/visualizacaoPacote';
 
 // function App() {
 type state = {
@@ -59,6 +60,7 @@ type state = {
               <Route path='Visualizacao-Pacote' element={<VisualizacaoOferta/>}/>
               <Route path='cadastro-pacote' element ={<CadastroPacote/>}></Route>
               <Route path='cadastro-ofertas' element={<CadastroOfertas/>}></Route>
+              <Route path='visualizacao-pacotes' element={<VilPacote/>}></Route>
               <Route path='cadastro-multiplo-produto'element={<CadastroMultiplo/>}></Route>
             </Routes>
           </BrowserRouter>
