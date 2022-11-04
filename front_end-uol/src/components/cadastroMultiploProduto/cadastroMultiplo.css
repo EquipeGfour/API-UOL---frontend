@@ -71,7 +71,6 @@
     height: 5px;
 }
 
-
 .descricao{
     height: 47px ; 
     width: 223.63px ;
@@ -83,6 +82,7 @@
 }
 
 .tamanhoBotaoCriar.p-button{
+
     height: 47px;
     margin-top: 1.3rem !important;
     padding: 0rem 1rem !important;
@@ -91,4 +91,14 @@
 }
 .QuantidadeProdutos{
     padding: 0rem 0.2rem !important;
+}
+
+.botaoCadastrar{
+
+}
+.bottomCadastrarM{
+    padding-bottom: 1rem;
+    margin: 0 auto !important;
+    display:flex;
+    justify-content: center !important;
 }
