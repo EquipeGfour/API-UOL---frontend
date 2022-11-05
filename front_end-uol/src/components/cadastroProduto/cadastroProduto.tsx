@@ -345,20 +345,34 @@ const CadastroProduto: React.FC = () => {
               headerStyle={{ width: "3rem" }}
               exportable={false}
             ></Column>
-            <Column field="nome" sortable header="Nome"></Column>
-            <Column field="descricao" sortable header="Descrição"></Column>
-            <Column field="preco" sortable header="Preço(R$)"></Column>
-            <Column
-              field="categoria"
-              sortable
-              header="Categoria"
-              body={categoriaTemplate}
-            ></Column>
+            
+            <Column 
+              field="nome" 
+              sortable 
+              header="Nome"
+            >
+            </Column>
+
+            <Column 
+              field="descricao" 
+              sortable 
+              header="Descrição"
+            >
+            </Column>
+
+            <Column 
+              field="preco" 
+              sortable header="Preço(R$)"
+            >
+            </Column>
+            
             <Column
               body={actionBodyTemplate}
               exportable={false}
               style={{ minWidth: "4rem" }}
-            ></Column>
+            >
+            </Column>
+
           </DataTable>
         </div>
       </div>
