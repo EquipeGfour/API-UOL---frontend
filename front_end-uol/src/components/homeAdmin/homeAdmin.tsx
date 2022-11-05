@@ -8,12 +8,37 @@ const HomeAdmin: React.FC = (props) => {
         <div className="containerCadastro">
             <h5>Bem Vindo Administrador</h5>
             <div className="collection home">
-                <Link to={'/cadastro-produto'} className="collection-item pointer">Produtos e Categorias</Link>
-                <Link to={'/cadastro-pacote'} className="collection-item pointer">Criação e Gerenciamento de Pacotes</Link>
-                <Link to={'/cadastro-ofertas'} className="collection-item pointer">Criação e Gerenciamento de Ofertas</Link>
-                <Link to={'/cadastro-promocao-final'} className="collection-item pointer">Criação e Gerenciamento de Promoção</Link>
-                <Link to={'/Visualizacao-Oferta'} className="collection-item pointer">Visualizacao de Ofertas </Link>
-                <Link to={'/Visualizacao-Pacotes'} className="collection-item pointer">Visualizacao Pacote</Link>
+                <Link 
+                    to={'/cadastro-produto'} 
+                    className="collection-item pointer"
+                >
+                    Produtos e Categorias
+                </Link>
+                <Link 
+                    to={'/cadastro-pacote'} 
+                    className="collection-item pointer">
+                    Criação de Pacotes
+                </Link>
+                <Link 
+                    to={'/cadastro-ofertas'} 
+                    className="collection-item pointer">
+                    Criação de Ofertas
+                </Link>
+                <Link 
+                    to={'/cadastro-promocao-final'} 
+                    className="collection-item pointer">
+                    Criação de Promoção
+                </Link>
+                <Link 
+                    to={'/Visualizacao-Oferta'} 
+                    className="collection-item pointer">
+                    Visualizacao de Ofertas 
+                </Link>
+                <Link 
+                    to={'/Visualizacao-Pacotes'} 
+                    className="collection-item pointer">
+                    Visualizacao Pacote
+                </Link>
             </div>
         </div>
         </div>

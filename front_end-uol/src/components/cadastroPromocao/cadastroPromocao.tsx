@@ -5,17 +5,14 @@ import { Chips } from 'primereact/chips';
 import { MultiSelect } from 'primereact/multiselect';
 import { Button } from 'primereact/button';
 import axios from 'axios';
-import { InputNumber } from 'primereact/inputnumber';
 import { InputTextarea } from 'primereact/inputtextarea';
+import { log } from 'console';
 
 const CadastroPromocaoFinal: React.FC = (props) => {
     const [promocao, setPromocao] = useState('');
-    const [oferta, setOferta] = useState('');
-    const [pacote, setPacote] = useState('');
     const [pacotes, setPacotes] = useState<any>([]);
     const [listaPacotes,setlistaPacotes] = useState([])
-    const [categoriaSelecionada, setCategoriaSelecionada] = useState<any[]>([])
-    const [selectedCities4, setSelectedCities4] = useState(null);
+    const [pacotesSelecionados, setPacotesSelecionados] = useState<any[]>([])
     const [ofertas,setOfertas] = useState([])
     const [descricao, setDescricao] = useState("")
 
@@ -30,20 +27,7 @@ const CadastroPromocaoFinal: React.FC = (props) => {
         })
     }
 
-const buscarCategoriaId = (e) =>{
-if(e.value.length){
-let ids = e.value.map((arrayItem)=>arrayItem.id).join(',')
-setCategoriaSelecionada(e.value)
-axios.get(`http://localhost:8081/compra/selecionar-sugestoes/${ids}`).then((res) => {
-    
-}).catch((erro) => {
-    console.error("Erro", erro.response);
-})
-}else{
-setCategoriaSelecionada([])
 
-}
-}
     
     const alterarPacote = (indice,pacote) =>{
         const listaPacotesAlterados = ofertas.map((p,i)=>{
@@ -80,14 +64,8 @@ setCategoriaSelecionada([])
         setOfertas(listaPrecosAlterados)
     }
     const CriarOfertas = () =>{
-        
-        const base = {
-            pacote:'',
-            preco:'',
-            categorias:[]
-        }
-        const lista = Array(Number(pacotes)).fill(base)
-        setOfertas(lista)
+ 
+        setOfertas(pacotesSelecionados)
     }
 
     useEffect(() => {    
@@ -121,9 +99,9 @@ setCategoriaSelecionada([])
                             <MultiSelect 
                                 className='chipTamanhoFormatado'  
                                 maxSelectedLabels={5} 
-                                value={categoriaSelecionada} 
+                                value={pacotesSelecionados} 
                                 options={listaPacotes}  
-                                onChange={(e) => setCategoriaSelecionada(e.value)} 
+                                onChange={(e) => setPacotesSelecionados(e.value)} 
                                 optionLabel="nome" 
                                 placeholder="Selecionar Pacote" 
                                 display="chip" 
@@ -148,21 +126,38 @@ setCategoriaSelecionada([])
                             <div className='espaçamento'>
                                 <label className='formato-label' htmlFor="inputtext">Pacote</label>
                                 <br />
-                                <InputText className='borda' value={o.pacote} onChange={(e) => alterarPacote(i,e.target.value)} />
+                                <InputText 
+                                    className='borda'   
+                                    value={o.nome} 
+                                    //onChange={(e) => alterarPacote(i,e.target.value)} 
+                                    />
                             </div>
+
+                            <div className="espaçamento">
+                                <span>
+                                    <label htmlFor="inputtext">Produtos</label>
+                                    <br />
+                                    <Chips 
+                                        disabled 
+                                        className=' ' 
+                                        max={5} 
+                                        value={o.produtos.map(p => p.nome)}  
+                                    />
+                                </span>
+                            </div>
+
                             <div className="espaçamento">
                                 <span>
                                     <label htmlFor="inputtext">Oferta</label>
                                     <br />
-                                    <InputText className='borda' value={o.pacote} onChange={(e) => alterarPreco(i,e.target.value)} />                            </span>
-                            </div>
-                            <div className="espaçamento">
-                                <span>
-                                    <label htmlFor="inputtext">Selecionar Produtos</label>
-                                    <br />
-                                    <MultiSelect className=' ' max={5} value={o.categorias} options={categoriaSelecionada}  onChange={(e) => alterarCategoria(i,e.value)} optionLabel="nome" placeholder="Selecionar Categoria" display="chip" />
+                                    <InputText 
+                                        className='borda' 
+                                        value={o.preco} 
+                                        onChange={(e) => alterarPreco(i,e.target.value)} 
+                                    />                            
                                 </span>
                             </div>
+                           
                         </div>
                     ))}
                 </div>    
