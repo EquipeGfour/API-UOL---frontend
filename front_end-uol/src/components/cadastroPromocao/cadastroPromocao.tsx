@@ -13,18 +13,18 @@ const CadastroPromocaoFinal: React.FC = (props) => {
     const [oferta, setOferta] = useState('');
     const [pacote, setPacote] = useState('');
     const [pacotes, setPacotes] = useState<any>([]);
-    const [categoria,setCategoria] = useState([])
+    const [listaPacotes,setlistaPacotes] = useState([])
     const [categoriaSelecionada, setCategoriaSelecionada] = useState<any[]>([])
     const [selectedCities4, setSelectedCities4] = useState(null);
     const [ofertas,setOfertas] = useState([])
     const [descricao, setDescricao] = useState("")
 
-    const buscarCategoria = () => {
-        axios.get(`http://localhost:8080/categoria/buscar`).then((res) => {
+    const buscarPacotes = () => {
+        axios.get(`http://localhost:8080/pacote/buscar`).then((res) => {
             console.log(res.data);
-            setCategoria(res.data)
+            setlistaPacotes(res.data)
             
-        setCategoria(res.data)
+        
         }).catch((erro) => {
         console.error("Erro", erro.response);
         })
@@ -91,7 +91,7 @@ setCategoriaSelecionada([])
     }
 
     useEffect(() => {    
-        buscarCategoria();
+        buscarPacotes();
         
     }, []);
     
@@ -118,7 +118,16 @@ setCategoriaSelecionada([])
                         <span>
                             <label htmlFor="inputtext">Selecionar Pacote</label>
                             <br />
-                            <MultiSelect className='chipTamanhoFormatado'  maxSelectedLabels={5} value={categoriaSelecionada} options={categoria}  onChange={(e) => setCategoriaSelecionada(e.value)} optionLabel="nome" placeholder="Selecionar Categoria" display="chip" />
+                            <MultiSelect 
+                                className='chipTamanhoFormatado'  
+                                maxSelectedLabels={5} 
+                                value={categoriaSelecionada} 
+                                options={listaPacotes}  
+                                onChange={(e) => setCategoriaSelecionada(e.value)} 
+                                optionLabel="nome" 
+                                placeholder="Selecionar Pacote" 
+                                display="chip" 
+                            />
                         </span>
                         
                     </div>
