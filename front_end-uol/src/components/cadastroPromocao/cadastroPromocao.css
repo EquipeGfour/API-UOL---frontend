@@ -14,6 +14,11 @@
     width: 100%;
 }
 
+.caixaDescricao{
+    height: 2.8rem;
+}
+
+
 .formato-label{
     margin-left: 2%;
 }

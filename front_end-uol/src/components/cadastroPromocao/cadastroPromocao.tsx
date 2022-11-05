@@ -6,6 +6,7 @@ import { MultiSelect } from 'primereact/multiselect';
 import { Button } from 'primereact/button';
 import axios from 'axios';
 import { InputNumber } from 'primereact/inputnumber';
+import { InputTextarea } from 'primereact/inputtextarea';
 
 const CadastroPromocaoFinal: React.FC = (props) => {
     const [promocao, setPromocao] = useState('');
@@ -16,6 +17,7 @@ const CadastroPromocaoFinal: React.FC = (props) => {
     const [categoriaSelecionada, setCategoriaSelecionada] = useState<any[]>([])
     const [selectedCities4, setSelectedCities4] = useState(null);
     const [ofertas,setOfertas] = useState([])
+    const [descricao, setDescricao] = useState("")
 
     const buscarCategoria = () => {
         axios.get(`http://localhost:8080/categoria/buscar`).then((res) => {
@@ -103,9 +105,18 @@ setCategoriaSelecionada([])
                         <br />
                         <InputText className='borda' value={promocao} onChange={(e) => setPromocao(e.target.value)} />
                     </div>
+
+                <div className='linha-chip'>
+                    <div className='espaçamento'>
+                        <label className='' htmlFor="inputtext">Descrição</label>
+                        <br />
+                        <InputTextarea className='borda caixaDescricao' value={descricao} onChange = {(e) => setDescricao(e.target.value)} />
+                    </div>
+                </div>
+
                     <div className="espaçamento">
                         <span>
-                            <label htmlFor="inputtext">Selecionar Categoria</label>
+                            <label htmlFor="inputtext">Selecionar Pacote</label>
                             <br />
                             <MultiSelect className='chipTamanhoFormatado'  maxSelectedLabels={5} value={categoriaSelecionada} options={categoria}  onChange={(e) => setCategoriaSelecionada(e.value)} optionLabel="nome" placeholder="Selecionar Categoria" display="chip" />
                         </span>
@@ -113,13 +124,7 @@ setCategoriaSelecionada([])
                     </div>
                 </div>
 
-                <div className='linha-chip'>
-                    <div className='espaçamento'>
-                        <label className='' htmlFor="inputtext">Quantidade de Pacotes</label>
-                        <br />
-                        <InputNumber className='borda' value={pacotes} onValueChange={(e) => setPacotes(e.target.value)} />
-                    </div>
-                </div>
+                
                 <Button  label="Criar" onClick={CriarOfertas} className="p-button-success botao-criar-promocao" />
             </div>
 
