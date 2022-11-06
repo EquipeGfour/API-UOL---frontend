@@ -1,32 +1,51 @@
 import './cadastroPromocao.css'
 import { InputText } from 'primereact/inputtext';
-import React, { useEffect, useState } from 'react';
+import { InputNumber } from 'primereact/inputnumber';
+import React, { useEffect, useState, useRef } from 'react';
 import { Chips } from 'primereact/chips';
 import { MultiSelect } from 'primereact/multiselect';
 import { Button } from 'primereact/button';
 import axios from 'axios';
 import { InputTextarea } from 'primereact/inputtextarea';
-import { log } from 'console';
+import { Toast } from 'primereact/toast';
+
 
 const CadastroPromocaoFinal: React.FC = (props) => {
     const [promocao, setPromocao] = useState('');
-    const [pacotes, setPacotes] = useState<any>([]);
     const [listaPacotes,setlistaPacotes] = useState([])
     const [pacotesSelecionados, setPacotesSelecionados] = useState<any[]>([])
     const [ofertas,setOfertas] = useState([])
     const [descricao, setDescricao] = useState("")
+    const toast = useRef(null);
 
     const buscarPacotes = () => {
         axios.get(`http://localhost:8080/pacote/buscar`).then((res) => {
             console.log(res.data);
             setlistaPacotes(res.data)
-            
-        
         }).catch((erro) => {
         console.error("Erro", erro.response);
         })
     }
 
+    const cadastrarOferta = () => {
+
+        let obj = [
+            {
+                nome:promocao,
+                descricao:descricao,
+                pacotes:ofertas
+            }
+        ]
+        axios.post("http://localhost:8080/oferta/cadastrar-multiplos",obj).then(()=>{
+            setPromocao('');
+            setDescricao('');
+            setPacotesSelecionados([])
+            setOfertas([]);
+            toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Ofertas Cadastradas', life: 3000 });
+        }).catch((erro)=>{
+            console.error(erro)
+        })
+    }
 
     
     const alterarPacote = (indice,pacote) =>{
@@ -64,7 +83,6 @@ const CadastroPromocaoFinal: React.FC = (props) => {
         setOfertas(listaPrecosAlterados)
     }
     const CriarOfertas = () =>{
- 
         setOfertas(pacotesSelecionados)
     }
 
@@ -76,6 +94,7 @@ const CadastroPromocaoFinal: React.FC = (props) => {
 
     return (
         <>
+            <Toast ref={toast} />
             <div className="borda-inicial-1">
                 <div className='seletores'>
                     <div className='espaçamento'>
@@ -122,7 +141,7 @@ const CadastroPromocaoFinal: React.FC = (props) => {
                 </div>
                 <div className='BordaPacotesOfertado'>
                     {ofertas.map((o,i)=>(
-                        <div className='seletores'>
+                        <div key={"campo"+i} className='seletores'>
                             <div className='espaçamento'>
                                 <label className='formato-label' htmlFor="inputtext">Pacote</label>
                                 <br />
@@ -150,22 +169,22 @@ const CadastroPromocaoFinal: React.FC = (props) => {
                                 <span>
                                     <label htmlFor="inputtext">Oferta</label>
                                     <br />
-                                    <InputText 
+                                    <InputNumber 
                                         className='borda' 
                                         value={o.preco} 
-                                        onChange={(e) => alterarPreco(i,e.target.value)} 
+                                        onValueChange={(e) => alterarPreco(i,e.target.value)} 
                                     />                            
                                 </span>
                             </div>
-                           
+
                         </div>
                     ))}
                 </div>    
+                <div className='botao-Promocao-Final'>
+                    <Button  label="Cadastrar Promoções" onClick={()=> cadastrarOferta()} className="p-button-success botao-Cadastrar-Promoções" />
+                </div>
             </div>
             ):<></>}
-            <div className='botao-Promocao-Final'>
-                <Button  label="Cadastrar Promoções" className="p-button-success botao-Cadastrar-Promoções" />
-            </div>
         </>
 
     )

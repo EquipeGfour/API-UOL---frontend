@@ -26,10 +26,12 @@ const CadastroMultiplo: React.FC = (props) => {
             console.error("Erro", erro.response);
         })
     }
+
     const teclaEnter = (event)=>{
         
         if(event.key==='Enter') cadastrarMultiplosProdutos()
     }
+
     const buscarCategoriaId = (e) => {
         if (e.value.length) {
             let ids = e.value.map((arrayItem) => arrayItem.id).join(',')
