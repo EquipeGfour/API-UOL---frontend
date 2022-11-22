@@ -98,7 +98,7 @@ const CadastroPromocaoFinal: React.FC = (props) => {
     return (
         <>
             <Toast ref={toast} />
-            <h5 className="text-center">Criação de Promoção</h5>
+            <h5 className="text-center">Criação de Oferta</h5>
             <div className="borda-inicial-1">
                 <div className='seletores'>
                     <div className='espaçamento'>
@@ -188,7 +188,7 @@ const CadastroPromocaoFinal: React.FC = (props) => {
                         </AccordionTab>
                     </Accordion>
                     <div className='botao-Promocao-Final'>
-                        <Button label="Cadastrar Promoções" onClick={() => cadastrarOferta()} className="p-button-success botao-Cadastrar-Promoções" />
+                        <Button label="Cadastrar Oferta" onClick={() => cadastrarOferta()} className="p-button-success botao-Cadastrar-Promoções" />
                     </div>
                 </div>
             ) : <></>}
