@@ -80,6 +80,7 @@ const VisualizacaoOferta:React.FC = (props) => {
 
     return (
         <div >
+            <h5 className="text-center">Visualização de Ofertas</h5>
             {ofertas.map((o)=> (
                 <Accordion className="tamanho-colapse" activeIndex={0}>
                     <AccordionTab header= {o.nome}>    

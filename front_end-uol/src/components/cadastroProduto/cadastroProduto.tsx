@@ -328,6 +328,7 @@ const CadastroProduto: React.FC = () => {
 
   return (
     <>
+    <h5 className="text-center">Cadastro de Produtos</h5>
       <div className="datatable-crud-demo">
         <Toast ref={toast} />
         <div className="card">

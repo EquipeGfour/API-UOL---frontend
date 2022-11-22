@@ -97,6 +97,7 @@ const CadastroPromocaoFinal: React.FC = (props) => {
     return (
         <>
             <Toast ref={toast} />
+            <h5 className="text-center">Criação de Promoção</h5>
             <div className="borda-inicial-1">
                 <div className='seletores'>
                     <div className='espaçamento'>
@@ -175,7 +176,7 @@ const CadastroPromocaoFinal: React.FC = (props) => {
                                         className='borda' 
                                         value={precoNovo}
                                         prefix='R$ '
-                                        onValueChange={(e) => setPrecoNovo(e.target.value)} 
+                                        onValueChange={(e) => setPrecoNovo(e.target.value)}
                                     />                            
                                 </span>
                             </div>
