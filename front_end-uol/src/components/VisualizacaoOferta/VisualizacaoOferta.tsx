@@ -43,7 +43,7 @@ const VisualizacaoOferta:React.FC = (props) => {
         return(
             <div className="subtitulo-colapse-2">
                 <label  className="" htmlFor="inputtext">{p.nome}</label>
-                <label  className="" htmlFor="inputtext">Preço: {parseFloat (p.preco).toFixed(2)} R$ </label>
+                <label  className="" htmlFor="inputtext">Preço: R$ {parseFloat (p.preco).toFixed(2)} </label>
             </div>
         )
     }

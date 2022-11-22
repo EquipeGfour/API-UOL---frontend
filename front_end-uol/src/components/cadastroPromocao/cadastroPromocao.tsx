@@ -15,6 +15,7 @@ const CadastroPromocaoFinal: React.FC = (props) => {
     const [listaPacotes,setlistaPacotes] = useState([])
     const [pacotesSelecionados, setPacotesSelecionados] = useState<any[]>([])
     const [ofertas,setOfertas] = useState([])
+    const [precoNovo,setPrecoNovo] = useState(null)
     const [descricao, setDescricao] = useState("")
     const toast = useRef(null);
 
@@ -33,7 +34,7 @@ const CadastroPromocaoFinal: React.FC = (props) => {
             {
                 nome:promocao,
                 descricao:descricao,
-                pacotes:ofertas
+                pacotes:ofertas                
             }
         ]
         axios.post("http://localhost:8080/oferta/cadastrar-multiplos",obj).then(()=>{
@@ -41,6 +42,7 @@ const CadastroPromocaoFinal: React.FC = (props) => {
             setDescricao('');
             setPacotesSelecionados([])
             setOfertas([]);
+            setPrecoNovo('')
             toast.current.show({ severity: 'success', summary: 'Sucesso', detail: 'Ofertas Cadastradas', life: 3000 });
         }).catch((erro)=>{
             console.error(erro)
@@ -167,12 +169,13 @@ const CadastroPromocaoFinal: React.FC = (props) => {
 
                             <div className="espaçamento">
                                 <span>
-                                    <label htmlFor="inputtext">Oferta</label>
+                                    <label htmlFor="inputtext">Preço</label>
                                     <br />
                                     <InputNumber 
                                         className='borda' 
-                                        value={o.preco} 
-                                        onValueChange={(e) => alterarPreco(i,e.target.value)} 
+                                        value={precoNovo}
+                                        prefix='R$ '
+                                        onValueChange={(e) => setPrecoNovo(e.target.value)} 
                                     />                            
                                 </span>
                             </div>

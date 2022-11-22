@@ -111,13 +111,13 @@ export const CadastroPacote: React.FC = () => {
                             {getFormErrorMessage('name')}
                         </div>
 
-                        <div className="field">
+                        {/* <div className="field">
                             <span className="p-float-label">
                                 <InputText id="preco" name="preco" value={precopacote} onChange={e => { setPrecopacote(e.target.value) }} className={classNames({ 'p-invalid': isFormFieldValid('preco') })} />
                                 <label htmlFor="preco" className={classNames({ 'p-error': isFormFieldValid('preco') })}>Preço*</label>
                             </span>
                             {getFormErrorMessage('preco')}
-                        </div>
+                        </div> */}
 
                         <div className="field">
                             <span className="p-float-label">
