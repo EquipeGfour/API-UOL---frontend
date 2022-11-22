@@ -91,3 +91,9 @@ margin: 0 auto;
 .BordaPacotesOfertado{
 margin-top: 3%;
 }
+
+.tamanho-colapse-promocao{
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 2%;
+}
