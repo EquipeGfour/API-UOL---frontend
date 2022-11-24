@@ -18,6 +18,7 @@ const CadastroPromocaoFinal: React.FC = (props) => {
     const [ofertas, setOfertas] = useState([])
     const [precoNovo, setPrecoNovo] = useState(null)
     const [descricao, setDescricao] = useState("")
+    const [qtdOfertas, setQtdOfertas] = useState<any>([]);
     const toast = useRef(null);
 
     const buscarPacotes = () => {
@@ -88,7 +89,6 @@ const CadastroPromocaoFinal: React.FC = (props) => {
     const CriarOfertas = () => {
         setOfertas(pacotesSelecionados)
     }
-
     useEffect(() => {
         buscarPacotes();
 
@@ -98,7 +98,7 @@ const CadastroPromocaoFinal: React.FC = (props) => {
     return (
         <>
             <Toast ref={toast} />
-            <h5 className="text-center">Criação de Oferta</h5>
+            <h5 className="text-center">Criação de Promoções e Ofertas</h5>
             <div className="borda-inicial-1">
                 <div className='seletores'>
                     <div className='espaçamento'>
@@ -114,20 +114,16 @@ const CadastroPromocaoFinal: React.FC = (props) => {
                             <InputTextarea className='borda caixaDescricao' value={descricao} onChange={(e) => setDescricao(e.target.value)} />
                         </div>
                     </div>
-
+                    
                     <div className="espaçamento">
-                        <span>
-                            <label htmlFor="inputtext">Selecionar Pacote</label>
-                            <br />
-                            <MultiSelect
-                                className='chipTamanhoFormatado'
-                                maxSelectedLabels={5}
-                                value={pacotesSelecionados}
-                                options={listaPacotes}
-                                onChange={(e) => setPacotesSelecionados(e.value)}
-                                optionLabel="nome"
-                                placeholder="Selecionar Pacote"
-                                display="chip"
+                        <span>                           
+
+                            <label className='' htmlFor="inputtext">Quantidade de Ofertas</label>
+                            <InputNumber 
+                                className='borda' 
+                                placeholder='Quantidade de Ofertas' 
+                                value={qtdOfertas}
+                                onValueChange={(e)=> setQtdOfertas(e.target.value)}
                             />
                         </span>
 
@@ -157,16 +153,18 @@ const CadastroPromocaoFinal: React.FC = (props) => {
                                         </div>
 
                                         <div className="espaçamento">
-                                            <span>
-                                                <label htmlFor="inputtext">Produtos</label>
-                                                <br />
-                                                <Chips
-                                                    disabled
-                                                    className=' '
-                                                    max={5}
-                                                    value={o.produtos.map(p => p.nome)}
-                                                />
-                                            </span>
+                                        <label htmlFor="inputtext">Selecionar Pacote</label>
+                                        <br />
+                                        <MultiSelect
+                                            className='chipTamanhoFormatado'
+                                            
+                                            value={pacotesSelecionados}
+                                            options={listaPacotes}
+                                            onChange={(e) => setPacotesSelecionados(e.value)}
+                                            optionLabel="nome"
+                                            placeholder="Selecionar Pacote"
+                                            display="chip"
+                                        />
                                         </div>
 
 
@@ -177,7 +175,7 @@ const CadastroPromocaoFinal: React.FC = (props) => {
                                         <label htmlFor="inputtext">Preço</label>
                                         <br />
                                         <InputNumber
-                                            className='borda'
+                                            className='borda-preco'
                                             value={precoNovo}
                                             prefix='R$ '
                                             onValueChange={(e) => setPrecoNovo(e.target.value)}

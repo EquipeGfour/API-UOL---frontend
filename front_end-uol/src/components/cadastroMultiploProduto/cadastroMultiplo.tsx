@@ -135,8 +135,10 @@ const CadastroMultiplo: React.FC = (props) => {
 
     return (
         <>
+        <h5 className="text-center">Cadastro Multiplo de Produtos</h5>
             <Toast ref={toast} />
             <div className='Centralizador'>
+            
                 <MultiSelect
                     className='Multiplo' 
                     maxSelectedLabels={1} 
@@ -148,14 +150,14 @@ const CadastroMultiplo: React.FC = (props) => {
                     placeholder="Selecionar Categoria" 
                     display="chip" 
                 />
-                <span className="p-float-label Separador">
-                    <InputNumber 
+                <div className="field col-12 md:col-3">
+                <label htmlFor="locale-us">Quantidade de Produtos</label>
+                <InputNumber 
                     className='borda' 
-                    placeholder='Quantidade de Produtos' 
                     value={produtos} 
-                    onValueChange={(e) => setProdutos(e.target.value)} 
+                    onValueChange={(e) => setProdutos(e.target.value)}
                 />
-                </span>
+                </div>
                 <Button
                     label="Criar"
                     icon="pi pi-plus"

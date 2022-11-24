@@ -14,14 +14,18 @@
     width: 100%;
 }
 
+.borda-preco{
+    border-radius: 5px;
+    margin-left: 0%;
+    width: 49%;
+}
+
 .caixaDescricao{
     height: 2.8rem;
 }
 
 
-.formato-label{
-    margin-left: 2%;
-}
+
 .formato-label-pacotes{
     margin-left: 1%;
 

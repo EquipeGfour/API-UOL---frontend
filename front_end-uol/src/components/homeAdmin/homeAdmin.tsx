@@ -27,7 +27,7 @@ const HomeAdmin: React.FC = (props) => {
                 <Link 
                     to={'/cadastro-promocao-final'} 
                     className="collection-item pointer">
-                    Criação de Promoção
+                    Criação de Promoção e Ofertas
                 </Link>
                 <Link 
                     to={'/Visualizacao-Oferta'} 
