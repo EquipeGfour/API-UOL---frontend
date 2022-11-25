@@ -19,6 +19,7 @@ const CadastroPromocaoFinal: React.FC = (props) => {
     const [precoNovo, setPrecoNovo] = useState(null)
     const [descricao, setDescricao] = useState("")
     const [qtdOfertas, setQtdOfertas] = useState<any>([]);
+    const [conjOfertas, setConjOfertas] = useState([]);
     const toast = useRef(null);
 
     const buscarPacotes = () => {
@@ -36,9 +37,15 @@ const CadastroPromocaoFinal: React.FC = (props) => {
             {
                 nome: promocao,
                 descricao: descricao,
-                pacotes: ofertas
+                pacotes: conjOfertas.map(o => {
+                    return {
+                        id:o.pacotes[0].id,
+                        preco:o.preco
+                    }
+                })
             }
         ]
+
         axios.post("http://localhost:8080/oferta/cadastrar-multiplos", obj).then(() => {
             setPromocao('');
             setDescricao('');
@@ -51,32 +58,20 @@ const CadastroPromocaoFinal: React.FC = (props) => {
         })
     }
 
-
-    const alterarPacote = (indice, pacote) => {
-        const listaPacotesAlterados = ofertas.map((p, i) => {
+    const alterarPacote = (indice, pacotes) => {
+        const listaOferta = conjOfertas.map((p, i) => {
             if (i == indice) {
-                return { ...p, pacote }
-            } else {
-                return p
-            }
-
-        })
-        setOfertas(listaPacotesAlterados)
-    }
-    const alterarCategoria = (indice, categorias) => {
-        const listaCategoria = ofertas.map((p, i) => {
-            if (i == indice) {
-                return { ...p, categorias }
+                return { ...p, pacotes }
             }
             else {
                 return p
             }
         })
-        setOfertas(listaCategoria)
+        setConjOfertas(listaOferta)
     }
 
     const alterarPreco = (indice, preco) => {
-        const listaPrecosAlterados = ofertas.map((p, i) => {
+        const listaPrecosAlterados = conjOfertas.map((p, i) => {
             if (i == indice) {
                 return { ...p, preco }
             }
@@ -84,11 +79,19 @@ const CadastroPromocaoFinal: React.FC = (props) => {
                 return p
             }
         })
-        setOfertas(listaPrecosAlterados)
+        setConjOfertas(listaPrecosAlterados)
     }
-    const CriarOfertas = () => {
-        setOfertas(pacotesSelecionados)
+
+    const CriarConjuntoOfertas = () => {
+        const base = {
+            pacotes:'',
+            preco:''
+        }
+        const lista = Array(Number(qtdOfertas)).fill(base)
+        console.log(lista)
+        setConjOfertas(lista)
     }
+
     useEffect(() => {
         buscarPacotes();
 
@@ -98,7 +101,7 @@ const CadastroPromocaoFinal: React.FC = (props) => {
     return (
         <>
             <Toast ref={toast} />
-            <h5 className="text-center">Criação de Promoções e Ofertas</h5>
+            <h5 className="text-center">Criação de Promoção e Ofertas</h5>
             <div className="borda-inicial-1">
                 <div className='seletores'>
                     <div className='espaçamento'>
@@ -114,16 +117,15 @@ const CadastroPromocaoFinal: React.FC = (props) => {
                             <InputTextarea className='borda caixaDescricao' value={descricao} onChange={(e) => setDescricao(e.target.value)} />
                         </div>
                     </div>
-                    
-                    <div className="espaçamento">
-                        <span>                           
 
+                    <div className="espaçamento">
+                        <span>
                             <label className='' htmlFor="inputtext">Quantidade de Ofertas</label>
-                            <InputNumber 
-                                className='borda' 
-                                placeholder='Quantidade de Ofertas' 
+                            <InputNumber
+                                className='borda'
+                                placeholder='Quantidade de Ofertas'
                                 value={qtdOfertas}
-                                onValueChange={(e)=> setQtdOfertas(e.target.value)}
+                                onValueChange={(e) => setQtdOfertas(e.target.value)}
                             />
                         </span>
 
@@ -131,62 +133,69 @@ const CadastroPromocaoFinal: React.FC = (props) => {
                 </div>
 
 
-                <Button label="Criar" onClick={CriarOfertas} className="p-button-success botao-criar-promocao" />
+                <Button label="Criar" onClick={CriarConjuntoOfertas} className="p-button-success botao-criar-promocao" />
             </div>
 
-            {ofertas.length ? (
+            {conjOfertas.length ? (
 
                 <div>
                     <Accordion className="tamanho-colapse-promocao" activeIndex={0}>
                         <AccordionTab header={promocao}>
                             <div className='BordaPacotesOfertado'>
-                                {ofertas.map((o, i) => (
+                                {conjOfertas.map((o, i) => (
                                     <div key={"campo" + i} className='seletores'>
-                                        <div className='espaçamento'>
-                                            <label className='formato-label' htmlFor="inputtext">Pacote</label>
+                                        
+                                        <div className="espaçamento">
+                                            <label htmlFor="inputtext">Selecionar Pacote</label>
                                             <br />
-                                            <InputText
-                                                className='borda'
-                                                value={o.nome}
-                                            //onChange={(e) => alterarPacote(i,e.target.value)} 
+                                            <MultiSelect
+                                                className='chipTamanhoFormatado'
+                                                maxSelectedLabels={1} 
+                                                selectionLimit={1} 
+                                                value={o.pacotes}
+                                                options={listaPacotes}
+                                                onChange={(e) => alterarPacote(i, e.value)} 
+                                                optionLabel="nome"
+                                                placeholder="Selecionar Pacote"
+                                                display="chip"
                                             />
                                         </div>
 
-                                        <div className="espaçamento">
-                                        <label htmlFor="inputtext">Selecionar Pacote</label>
-                                        <br />
-                                        <MultiSelect
-                                            className='chipTamanhoFormatado'
-                                            
-                                            value={pacotesSelecionados}
-                                            options={listaPacotes}
-                                            onChange={(e) => setPacotesSelecionados(e.value)}
-                                            optionLabel="nome"
-                                            placeholder="Selecionar Pacote"
-                                            display="chip"
-                                        />
-                                        </div>
+                                    {o.pacotes.length ? (
+                                        <span>
+                                            <label htmlFor="inputtext">Produtos</label>
+                                            <br />
+                                            <Chips
+                                                disabled
+                                                className=''
+                                                max={5}
+                                                value={o.pacotes[0].produtos?.map(p => p.nome)}
+                                            />
+                                        </span>
+                                        ):<></>
+                                    }
 
+                                        <div className="espaçamento">
+                                            <span>
+                                                <label htmlFor="inputtext">Preço</label>
+                                                <br />
+                                                <InputNumber
+                                                    className='borda-preco'
+                                                    value={o.preco}
+                                                    prefix='R$ '
+                                                    onChange={(e) => alterarPreco(i, e.value)}
+                                                />
+                                            </span>
+                                        </div>
 
                                     </div>
                                 ))}
-                                <div className="espaçamento">
-                                    <span>
-                                        <label htmlFor="inputtext">Preço</label>
-                                        <br />
-                                        <InputNumber
-                                            className='borda-preco'
-                                            value={precoNovo}
-                                            prefix='R$ '
-                                            onValueChange={(e) => setPrecoNovo(e.target.value)}
-                                        />
-                                    </span>
-                                </div>
+                                
                             </div>
                         </AccordionTab>
                     </Accordion>
                     <div className='botao-Promocao-Final'>
-                        <Button label="Cadastrar Oferta" onClick={() => cadastrarOferta()} className="p-button-success botao-Cadastrar-Promoções" />
+                        <Button label="Cadastrar Oferta" onClick={(e) => cadastrarOferta()} className="p-button-success botao-Cadastrar-Promoções" />
                     </div>
                 </div>
             ) : <></>}

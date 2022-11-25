@@ -81,11 +81,11 @@ const VisualizacaoOferta:React.FC = (props) => {
     return (
         <div >
             <h5 className="text-center">Visualização de Ofertas</h5>
-            {ofertas.map((o)=> (
-                <Accordion className="tamanho-colapse" activeIndex={0}>
+            {ofertas.map((o,i)=> (
+                <Accordion key={i} className="tamanho-colapse" activeIndex={0}>
                     <AccordionTab header= {o.nome}>    
-                        {o.pacotes.map((p) => (
-                            <Accordion className="tamanho-colapse-dentro" activeIndex={2}>                                       
+                        {o.pacotes.map((p,i) => (
+                            <Accordion key={i} className="tamanho-colapse-dentro" activeIndex={2}>                                       
                                 <AccordionTab headerTemplate={nomePlano(p)}>
                                     <div className="subtitulo-colapse">
                                         <label  className="" htmlFor="inputtext">  <h2>Produtos</h2> </label>
