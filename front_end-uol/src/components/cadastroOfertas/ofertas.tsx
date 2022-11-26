@@ -154,7 +154,7 @@ const CadastroOfertas: React.FC = () =>{
                             
                             />
                         </div>
-                       
+    
                         <div className="coluna-valor">
                             <div className="valor">
                                 <label>Valor Base:</label>

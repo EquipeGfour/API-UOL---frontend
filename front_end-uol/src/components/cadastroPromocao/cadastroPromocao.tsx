@@ -139,54 +139,57 @@ const CadastroPromocaoFinal: React.FC = (props) => {
             {conjOfertas.length ? (
 
                 <div>
-                    <Accordion className="tamanho-colapse-promocao" activeIndex={0}>
+                    <Accordion className="tamanho-colapse-promocao accordion-margin-1" activeIndex={0}>
                         <AccordionTab header={promocao}>
-                            <div className='BordaPacotesOfertado'>
+                            <div className='BordaPacotesOfertado '>
                                 {conjOfertas.map((o, i) => (
-                                    <div key={"campo" + i} className='seletores'>
-                                        
-                                        <div className="espaçamento">
-                                            <label htmlFor="inputtext">Selecionar Pacote</label>
-                                            <br />
-                                            <MultiSelect
-                                                className='chipTamanhoFormatado'
-                                                maxSelectedLabels={1} 
-                                                selectionLimit={1} 
-                                                value={o.pacotes}
-                                                options={listaPacotes}
-                                                onChange={(e) => alterarPacote(i, e.value)} 
-                                                optionLabel="nome"
-                                                placeholder="Selecionar Pacote"
-                                                display="chip"
-                                            />
-                                        </div>
-
-                                    {o.pacotes.length ? (
-                                        <span>
-                                            <label htmlFor="inputtext">Produtos</label>
-                                            <br />
-                                            <Chips
-                                                disabled
-                                                className=''
-                                                max={5}
-                                                value={o.pacotes[0].produtos?.map(p => p.nome)}
-                                            />
-                                        </span>
-                                        ):<></>
-                                    }
-
-                                        <div className="espaçamento">
-                                            <span>
-                                                <label htmlFor="inputtext">Preço</label>
+                                    <div key={"campo" + i} >
+                                        <div className='seletores'>
+                                            <div className="espaçamento">
+                                                <label htmlFor="inputtext">Selecionar Pacote</label>
                                                 <br />
-                                                <InputNumber
-                                                    className='borda-preco'
-                                                    value={o.preco}
-                                                    prefix='R$ '
-                                                    onChange={(e) => alterarPreco(i, e.value)}
+                                                <MultiSelect
+                                                    className='chipTamanhoFormatado'
+                                                    maxSelectedLabels={1} 
+                                                    selectionLimit={1} 
+                                                    value={o.pacotes}
+                                                    options={listaPacotes}
+                                                    onChange={(e) => alterarPacote(i, e.value)} 
+                                                    optionLabel="nome"
+                                                    placeholder="Selecionar Pacote"
+                                                    display="chip"
+                                                />
+                                            </div>
+
+                                            <div className="espaçamento">
+                                                <span>
+                                                    <label htmlFor="inputtext">Preço</label>
+                                                    <br />
+                                                    <InputNumber
+                                                        className='borda-preco'
+                                                        value={o.preco}
+                                                        prefix='R$ '
+                                                        onChange={(e) => alterarPreco(i, e.value)}
+                                                    />
+                                                </span>
+                                            </div>
+                                        </div>
+                                    {o.pacotes.length ? (
+                                        <div className='produto-pacote'>
+                                            <span>
+                                                <label htmlFor="inputtext">Produtos</label>
+                                                <br />
+                                                <Chips
+                                                    disabled
+                                                    className='width-input-chip'
+                                                    max={5}
+                                                    value={o.pacotes[0].produtos?.map(p => p.nome)}
                                                 />
                                             </span>
-                                        </div>
+                                        </div>    
+                                        ):<></>
+                                    }
+                                    {i < conjOfertas.length-1?<hr />:<></>}
 
                                     </div>
                                 ))}

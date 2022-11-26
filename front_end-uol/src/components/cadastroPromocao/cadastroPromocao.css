@@ -42,8 +42,24 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    flex-wrap: wrap;
 }
+
+.produto-pacote {
+    padding-left: 1.5%;
+}
+
+.accordion-margin-1.p-accordion .p-accordion-content{
+    padding-top: 0.10rem !important;
+}
+
+.width-input-chip.p-chips{
+    width: 100%;
+}
+
+.width-input-chip.p-chips .p-chips-multiple-container{
+    width: 93%;
+}
+
 .seletores > div {
     flex:1;
 }
