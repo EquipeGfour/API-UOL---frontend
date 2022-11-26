@@ -65,7 +65,7 @@ const CadastroOfertas: React.FC = () =>{
         let ids = e.value.map((arrayItem)=>arrayItem.id).join(',')
         setCategoriaSelecionada(e.value)
         axios.get(`http://localhost:8081/compra/selecionar-sugestoes/${ids}`).then((res) => {
-            console.log(res.data)
+            
             setListaProdutos(res.data)
         }).catch((erro) => {
             console.error("Erro", erro.response);
@@ -78,7 +78,7 @@ const CadastroOfertas: React.FC = () =>{
 
     const buscarPacotes = () => {
         axios.get(`http://localhost:8080/pacote/buscar`).then((res)=>{
-            console.log(res.data)
+            
             setPacotes(res.data)
         }).catch((erro) => {
             console.error("Erro", erro.response);
@@ -154,17 +154,7 @@ const CadastroOfertas: React.FC = () =>{
                             
                             />
                         </div>
-                        {/* <div className="flexibilizar">
-                            <label className="ajuste-label">Selecione os Pacotes: </label>
-                            <MultiSelect                             
-                            className="tamanho-input-pacote"
-                            value={pacoteSelecionado}
-                            options={pacotes}
-                            onChange={(e) => setPacoteSelecionado(e.value)} 
-                            optionLabel="nome" 
-                            placeholder="Selecione os Pacotes" 
-                            display="chip" />
-                        </div> */}
+                       
                         <div className="coluna-valor">
                             <div className="valor">
                                 <label>Valor Base:</label>
@@ -174,15 +164,7 @@ const CadastroOfertas: React.FC = () =>{
                                 disabled
                                 prefix="R$ " />
                             </div>
-                            {/* <div className="desconto">
-                                <label  htmlFor="percent">Desconto(%): </label>
-                                <InputNumber 
-                                inputId="percent" 
-                                value={desconto}
-                                placeholder='Insira o valor' 
-                                onValueChange={(e) => setDesconto(e.value)} 
-                                suffix="%" />
-                            </div> */}
+                            
                             <div className="valorFinal">
                                 <label>Valor da Oferta:</label>
                                 <InputNumber
